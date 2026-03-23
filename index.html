@@ -506,7 +506,47 @@ body::after{
 <div class="footer">© 数秘術×パワーストーン診断</div>
 
 <script>
-const LINE_URL='#'; // TODO: LINE公式URL
+const LINE_URL='https://line.me/R/ti/p/YOUR_LINE_ID'; // TODO: LINE公式URL
+const API_BASE='https://YOUR-TUNNEL.trycloudflare.com'; // 本番: Cloudflare Tunnel / テスト: http://localhost:3900
+const PROJECT_SLUG='ishiya';
+const DIAGNOSIS_TYPE='numerology';
+
+// UTMパラメータ取得
+function getUTMParams() {
+  const sp = new URLSearchParams(window.location.search);
+  const utm = {};
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k => {
+    const v = sp.get(k);
+    if (v) utm[k] = v;
+  });
+  return Object.keys(utm).length > 0 ? utm : undefined;
+}
+
+async function sendDiagnosisToAPI(result, stonesArr, detail) {
+  try {
+    const utm = getUTMParams();
+    const res = await fetch(`${API_BASE}/api/${PROJECT_SLUG}/lp-diagnosis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: DIAGNOSIS_TYPE, result, stones: stonesArr, detail, utm }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return data.token || null;
+  } catch (e) {
+    console.warn('[DiagnosisAPI] Failed:', e.message);
+    return null;
+  }
+}
+
+function buildLineURL(params, token) {
+  if (token) {
+    const lineId = LINE_URL.replace('https://line.me/R/ti/p/','');
+    return `https://line.me/R/oaMessage/${lineId}/?token:${token}`;
+  }
+  const qs = new URLSearchParams(params);
+  return `${LINE_URL}?${qs.toString()}`;
+}
 
 // ======== Web Audio API - Sound Effects ========
 let audioCtx = null;
@@ -793,7 +833,7 @@ function checkAlreadyDiagnosed() {
   if (flag) {
     document.getElementById('screen-start').classList.remove('active');
     document.getElementById('screen-already').classList.add('active');
-    document.getElementById('line-cta-already').href = LINE_URL;
+    document.getElementById('line-cta-already').href = buildLineURL({ result: flag }, null);
     return true;
   }
   document.getElementById('screen-start').classList.add('active');
@@ -1074,9 +1114,21 @@ function showResult(){
   // Check compare param
   checkCompareResult(resultKey, stone);
 
-  // LINE CTA
-  const nameParam = userName !== 'あなた' ? `&name=${encodeURIComponent(userName)}` : '';
-  document.getElementById('line-cta').href=`${LINE_URL}?result=${resultKey}&soul_number=${soulNumber}&month=${userBirthMonth}${nameParam}`;
+  // LINE CTA (set immediately, update with token async)
+  const lineParams = { result: resultKey, soul_number: String(soulNumber), month: String(userBirthMonth) };
+  if (userName !== 'あなた') lineParams.name = userName;
+  document.getElementById('line-cta').href = buildLineURL(lineParams, null);
+
+  // Send to API (async, non-blocking)
+  sendDiagnosisToAPI(resultKey, [stone.name, support1.name, support2.name], {
+    soulNumber, month: userBirthMonth, userName, stoneName: stone.name
+  }).then(token => {
+    if (token) {
+      const url = buildLineURL(lineParams, token);
+      document.getElementById('line-cta').href = url;
+      document.getElementById('line-cta-already').href = url;
+    }
+  });
 
   // Slots
   document.getElementById('slots-left').textContent=Math.floor(Math.random()*15)+10;
