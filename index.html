@@ -60,6 +60,17 @@ body::after{
 .divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto;position:relative}
 .divider::before{content:'✦';position:absolute;top:-8px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:12px}
 
+/* Nickname */
+.nickname-section{text-align:center;margin-bottom:16px}
+.nickname-input{
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.25);
+  border-radius:10px;padding:12px 16px;color:var(--text);font-size:15px;
+  font-family:'Noto Sans JP',sans-serif;text-align:center;width:200px;
+  transition:border-color 0.3s;
+}
+.nickname-input:focus{outline:none;border-color:var(--gold)}
+.nickname-input::placeholder{color:rgba(232,228,216,0.3)}
+
 /* Birthday */
 .birthday-section{text-align:center;margin-top:24px}
 .birthday-label{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--gold);margin-bottom:16px}
@@ -80,7 +91,7 @@ body::after{
   display:inline-block;margin-top:20px;padding:14px 40px;
   background:linear-gradient(135deg,var(--green),var(--indigo));
   border:1px solid var(--gold-dim);
-  color:var(--gold);font-size:16px;font-weight:700;border-radius:50px;border:1px solid var(--gold-dim);
+  color:var(--gold);font-size:16px;font-weight:700;border-radius:50px;
   cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(201,168,76,0.15);
   font-family:'Noto Serif JP',serif;letter-spacing:2px;
 }
@@ -138,11 +149,14 @@ body::after{
 .result-traits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
 .trait-tag{background:rgba(61,220,151,0.1);border:1px solid rgba(61,220,151,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--accent-emerald)}
 .result-chakra{font-size:13px;color:var(--gold-light);opacity:0.7}
+
+/* Message preview - first line clear, rest blurred */
 .message-preview{position:relative;margin-top:20px;padding:20px;background:rgba(0,0,0,0.15);border-radius:12px}
+.message-first-line{font-size:14px;line-height:2;color:var(--text);margin-bottom:4px}
 .message-blurred{font-size:14px;line-height:2;color:var(--text);filter:blur(6px);user-select:none;pointer-events:none}
 .message-overlay{
-  position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;background:rgba(6,14,26,0.3);border-radius:12px;
+  position:absolute;left:0;right:0;bottom:0;height:70%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(6,14,26,0),rgba(6,14,26,0.6));border-radius:0 0 12px 12px;
 }
 .message-overlay .lock-icon{font-size:24px;margin-bottom:8px}
 .message-overlay p{font-family:'Noto Serif JP',serif;font-size:14px;color:var(--gold)}
@@ -184,6 +198,20 @@ body::after{
 }
 .compat-type-desc{font-size:12px;color:var(--sub);line-height:1.7}
 
+/* Compare result */
+.compare-result{
+  background:linear-gradient(145deg,rgba(10,61,46,0.2),rgba(13,27,62,0.3));
+  border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;
+}
+.compare-result h3{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--gold);margin-bottom:12px}
+.compare-stones{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px}
+.compare-stones .compare-stone{text-align:center}
+.compare-stones .compare-stone .cs-icon{font-size:40px}
+.compare-stones .compare-stone .cs-name{font-size:12px;color:var(--gold-light);margin-top:4px}
+.compare-stones .compare-x{font-size:24px;color:var(--accent-emerald)}
+.compare-pct{font-size:36px;font-weight:700;color:var(--gold);margin-bottom:8px}
+.compare-desc{font-size:13px;color:var(--sub);line-height:1.8}
+
 /* CTA */
 .cta-section{
   background:linear-gradient(145deg,rgba(10,61,46,0.3),rgba(13,27,62,0.3));
@@ -203,6 +231,14 @@ body::after{
 .cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(6,199,85,0.4)}
 .cta-sub{font-size:11px;color:var(--sub);margin-top:12px}
 .cta-urgency{font-size:12px;color:#FF6B6B;margin-top:10px}
+
+/* Countdown timer */
+.countdown-timer{
+  margin-top:14px;font-size:15px;color:#FF6B6B;font-weight:700;
+  animation:countdownPulse 2s ease-in-out infinite;
+}
+@keyframes countdownPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.7;transform:scale(1.03)}}
+.countdown-timer .timer-label{font-size:12px;color:rgba(255,107,107,0.7);font-weight:400;display:block;margin-bottom:2px}
 
 /* Share */
 .share-section{text-align:center;margin-bottom:40px}
@@ -237,6 +273,17 @@ body::after{
 .share-btn.line-share{background:#06C755}
 .share-btn.threads{background:linear-gradient(135deg,#333,#000);border:1px solid rgba(255,255,255,0.2)}
 .share-btn.instagram{background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737)}
+
+/* Compare button */
+.compare-btn{
+  display:inline-block;margin-top:12px;padding:12px 24px;
+  background:linear-gradient(135deg,rgba(61,220,151,0.2),rgba(201,168,76,0.2));
+  border:1px solid rgba(61,220,151,0.4);border-radius:50px;color:var(--accent-emerald);
+  font-size:14px;font-weight:700;cursor:pointer;transition:all 0.3s;
+}
+.compare-btn:hover{background:linear-gradient(135deg,rgba(61,220,151,0.3),rgba(201,168,76,0.3));transform:translateY(-2px)}
+.compare-copied{font-size:12px;color:var(--accent-emerald);margin-top:8px;display:none}
+
 .retry-btn{
   display:inline-block;margin-top:16px;padding:10px 24px;border:1px solid rgba(201,168,76,0.2);
   border-radius:8px;color:var(--gold-dim);font-size:13px;cursor:pointer;background:transparent;transition:all 0.3s;
@@ -244,7 +291,7 @@ body::after{
 .retry-btn:hover{background:rgba(201,168,76,0.08);color:var(--gold)}
 
 /* Loading */
-.loading{text-align:center;padding:60px 0}
+.loading{text-align:center;padding:60px 0;position:relative}
 .loading-orb{
   width:70px;height:70px;border-radius:50%;margin:0 auto 24px;position:relative;
   background:radial-gradient(circle,rgba(201,168,76,0.6),rgba(10,61,46,0.8));
@@ -257,8 +304,51 @@ body::after{
 @keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(201,168,76,0.3)}50%{transform:scale(1.1);box-shadow:0 0 40px rgba(201,168,76,0.5)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-num{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-.loading p{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold-light);animation:fadeInOut 2s ease-in-out infinite}
-@keyframes fadeInOut{0%,100%{opacity:0.4}50%{opacity:1}}
+.loading p{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold-light);min-height:24px}
+.loading-text-fade{animation:loadFadeInOut 1.5s ease-in-out}
+@keyframes loadFadeInOut{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
+
+/* Loading particles */
+.loading-particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;width:3px;height:3px;background:white;border-radius:50%;
+  animation:particleFall linear infinite;opacity:0;
+}
+@keyframes particleFall{
+  0%{transform:translateY(-10px) translateX(0);opacity:0}
+  10%{opacity:0.8}
+  90%{opacity:0.3}
+  100%{transform:translateY(400px) translateX(30px);opacity:0}
+}
+
+/* Loading canvas for numerology circle */
+.numerology-chart-canvas{margin:20px auto;display:block}
+
+/* Toast notification */
+.toast-notification{
+  position:fixed;bottom:-80px;left:50%;transform:translateX(-50%);
+  background:rgba(10,61,46,0.95);border:1px solid rgba(201,168,76,0.3);
+  border-radius:12px;padding:12px 20px;z-index:999;
+  font-size:13px;color:var(--text);white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  transition:bottom 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s ease;
+  opacity:0;
+}
+.toast-notification.show{bottom:24px;opacity:1}
+.toast-notification.hide{bottom:-80px;opacity:0}
+.toast-icon{margin-right:6px}
+
+/* Already diagnosed screen */
+.already-done{text-align:center;padding:60px 0}
+.already-done h2{font-family:'Noto Serif JP',serif;font-size:20px;color:var(--gold);margin-bottom:16px}
+.already-done p{font-size:14px;color:var(--sub);line-height:1.8;margin-bottom:20px}
+.already-done .cta-button{margin-bottom:16px}
+.already-done .reset-btn{
+  display:inline-block;padding:8px 16px;font-size:12px;color:var(--sub);
+  background:transparent;border:1px solid rgba(201,168,76,0.15);border-radius:8px;
+  cursor:pointer;transition:all 0.3s;
+}
+.already-done .reset-btn:hover{border-color:rgba(201,168,76,0.3);color:var(--gold-light)}
 
 .footer{text-align:center;padding:20px;font-size:11px;color:rgba(255,255,255,0.15)}
 #shareCanvas{display:none}
@@ -268,10 +358,32 @@ body::after{
 
 <canvas id="shareCanvas" width="1080" height="1080"></canvas>
 
+<!-- Toast notification container -->
+<div class="toast-notification" id="toast-notification">
+  <span class="toast-icon">🔮</span>
+  <span id="toast-text"></span>
+</div>
+
 <div class="container">
 
+<!-- ALREADY DIAGNOSED -->
+<div class="screen" id="screen-already">
+  <div class="header">
+    <div class="header-icon">🔮</div>
+    <h1>数秘術×パワーストーン診断</h1>
+    <div class="divider"></div>
+  </div>
+  <div class="already-done">
+    <h2>✨ あなたは既に診断済みです</h2>
+    <p>あなたの鑑定結果はLINEで<br>保存されています</p>
+    <a href="#" class="cta-button" id="line-cta-already">📱 LINEで鑑定書を確認する</a>
+    <br><br>
+    <button class="reset-btn" onclick="resetDiagnosis()">もう一度診断する</button>
+  </div>
+</div>
+
 <!-- START -->
-<div class="screen active" id="screen-start">
+<div class="screen" id="screen-start">
   <div class="header">
     <div class="header-icon">🔮</div>
     <h1>数秘術×パワーストーン診断</h1>
@@ -281,6 +393,9 @@ body::after{
   </div>
 
   <div class="birthday-section">
+    <div class="nickname-section">
+      <input type="text" class="nickname-input" id="nickname-input" placeholder="ニックネーム（任意）" maxlength="20">
+    </div>
     <div class="birthday-label">🔮 生年月日を教えてください</div>
     <div class="birthday-inputs">
       <select id="birth-year"></select>
@@ -311,8 +426,10 @@ body::after{
 <!-- LOADING -->
 <div class="screen" id="screen-loading">
   <div class="loading">
+    <div class="loading-particles" id="loading-particles"></div>
     <div class="loading-orb"><span class="loading-num" id="loading-num"></span></div>
-    <p id="loading-text">ソウルナンバーを解読しています...</p>
+    <canvas class="numerology-chart-canvas" id="numerology-chart" width="240" height="240"></canvas>
+    <p id="loading-text"></p>
   </div>
 </div>
 
@@ -322,18 +439,25 @@ body::after{
   <div class="numerology-detail" id="numerology-detail"></div>
   <div class="compat-type-section" id="compat-type-section"></div>
   <div class="compat-section" id="compat-section"></div>
+  <div id="compare-result-section"></div>
   <div class="cta-section">
-    <h3>🔓 あなた専用の<br>数秘鑑定書を受け取る</h3>
+    <h3>🔓 <span id="cta-name">あなた</span>専用の<br>数秘鑑定書を受け取る</h3>
     <ul class="cta-benefits">
       <li>ソウルナンバーからの詳細メッセージ全文</li>
       <li>あなたの数秘×石の深層レポート</li>
       <li>弱点を補うサブストーン3選</li>
       <li>今月の数秘サイクルと開運アクション</li>
       <li>ソウルナンバー別・特別鑑定</li>
+      <li>🎁 今月の開運カレンダー（PDF）</li>
+      <li>🔮 毎月届く数秘メッセージ</li>
     </ul>
     <a href="#" class="cta-button" id="line-cta">📱 LINEで鑑定書を受け取る</a>
     <p class="cta-sub">無料・30秒で完了・いつでもブロックOK</p>
     <p class="cta-urgency">🔥 本日あと <strong id="slots-left">21</strong>名 限定</p>
+    <div class="countdown-timer" id="countdown-timer">
+      <span class="timer-label">⏳ この鑑定結果は</span>
+      <span id="countdown-display">23:59:42</span> 後に消えます
+    </div>
   </div>
   <div class="share-section">
     <p>🔮 診断結果をシェアしよう</p>
@@ -346,6 +470,9 @@ body::after{
       <div class="share-btn-label"><a class="share-btn threads" onclick="shareThreads()">🔗</a><span>Threads</span></div>
       <div class="share-btn-label"><a class="share-btn instagram" onclick="shareIG()">📸</a><span>ストーリー</span></div>
     </div>
+    <button class="compare-btn" onclick="copyCompareLink()">💫 友達と相性を調べる</button>
+    <p class="compare-copied" id="compare-copied">✅ リンクをコピーしました！友達に送ってね</p>
+    <br>
     <button class="retry-btn" onclick="retry()">もう一度診断する</button>
   </div>
 </div>
@@ -356,11 +483,92 @@ body::after{
 <script>
 const LINE_URL='#'; // TODO: LINE公式URL
 
+// ======== Web Audio API - Sound Effects ========
+let audioCtx = null;
+let audioEnabled = false;
+
+function initAudio() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioEnabled = true;
+  } catch(e) {}
+}
+document.addEventListener('touchstart', initAudio, {once:true});
+document.addEventListener('click', initAudio, {once:true});
+
+function playTing() {
+  if (!audioCtx || !audioEnabled) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + 0.3);
+  } catch(e) {}
+}
+
+function playSparkle() {
+  if (!audioCtx || !audioEnabled) return;
+  try {
+    const notes = [1400, 1800, 2200, 2600, 3000];
+    notes.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.12);
+      gain.gain.setValueAtTime(0, audioCtx.currentTime + i * 0.12);
+      gain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + i * 0.12 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.12 + 0.4);
+      osc.start(audioCtx.currentTime + i * 0.12);
+      osc.stop(audioCtx.currentTime + i * 0.12 + 0.4);
+    });
+  } catch(e) {}
+}
+
+// ======== Toast Notifications ========
+const toastCities = ['東京','大阪','名古屋','福岡','札幌','横浜','神戸','京都','仙台','広島'];
+const toastStoneNames = ['ガーネット','ムーンストーン','シトリン','タイガーアイ','アクアマリン','ローズクォーツ','ラピスラズリ','オブシディアン','アメジスト','ラブラドライト','モルダバイト','サンストーン'];
+
+function showToast() {
+  const el = document.getElementById('toast-notification');
+  const city = toastCities[Math.floor(Math.random()*toastCities.length)];
+  const minutes = Math.floor(Math.random()*10);
+  let text;
+  if (minutes === 0) {
+    text = `たった今、${city}の方が診断しました`;
+  } else {
+    const stone = toastStoneNames[Math.floor(Math.random()*toastStoneNames.length)];
+    text = `${minutes}分前、${city}の方が${stone}と診断`;
+  }
+  document.getElementById('toast-text').textContent = text;
+  el.classList.remove('hide');
+  el.classList.add('show');
+  setTimeout(() => {
+    el.classList.remove('show');
+    el.classList.add('hide');
+  }, 3000);
+  scheduleToast();
+}
+
+function scheduleToast() {
+  const delay = (Math.random()*10 + 15) * 1000;
+  setTimeout(showToast, delay);
+}
+scheduleToast();
+
 // --- Soul Number Calculation ---
 function calcSoulNumber(y,m,d){
   const digits = `${y}${m}${d}`.split('').map(Number);
   let sum = digits.reduce((a,b)=>a+b,0);
-  // Keep reducing until single digit, but preserve master numbers
   while(sum>9 && sum!==11 && sum!==22 && sum!==33){
     sum = String(sum).split('').map(Number).reduce((a,b)=>a+b,0);
   }
@@ -547,6 +755,7 @@ let userBirthMonth = null;
 let currentQuestion = 0;
 let scores = {};
 let resultKey = '';
+let userName = '';
 
 // --- Birthday selectors ---
 const yearSel=document.getElementById('birth-year');
@@ -580,6 +789,29 @@ function checkBirthday(){
 }
 yearSel.onchange=monthSel.onchange=daySel.onchange=checkBirthday;
 
+// ======== 2回目訪問ブロック (numerology専用キー) ========
+function checkAlreadyDiagnosed() {
+  const flag = localStorage.getItem('numerology_diagnosed');
+  if (flag) {
+    document.getElementById('screen-start').classList.remove('active');
+    document.getElementById('screen-already').classList.add('active');
+    document.getElementById('line-cta-already').href = LINE_URL;
+    return true;
+  }
+  document.getElementById('screen-start').classList.add('active');
+  return false;
+}
+
+function resetDiagnosis() {
+  localStorage.removeItem('numerology_diagnosed');
+  localStorage.removeItem('numerology_countdown_start');
+  document.getElementById('screen-already').classList.remove('active');
+  document.getElementById('screen-start').classList.add('active');
+  document.getElementById('screen-start').style.animation='none';
+  document.getElementById('screen-start').offsetHeight;
+  document.getElementById('screen-start').style.animation='';
+}
+
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const s=document.getElementById(id);s.classList.add('active');
@@ -589,16 +821,10 @@ function showScreen(id){
 
 function startQuiz(){
   if(!soulNumber) return;
+  userName = document.getElementById('nickname-input').value.trim() || 'あなた';
   currentQuestion=0;
   scores={};
   scoreCategories.forEach(c=>scores[c]=0);
-  // Soul number gives base affinity to its stone
-  const baseKey=soulStoneMap[soulNumber];
-  if(baseKey){
-    // Give a moderate base score based on soul number traits
-    const s=stones[baseKey];
-    // We don't bias too hard — questions matter
-  }
   showQuestion();
 }
 
@@ -615,7 +841,10 @@ function showQuestion(){
   q.options.forEach(opt=>{
     const div=document.createElement('div');div.className='option';
     div.innerHTML=`<span class="option-icon">${opt.icon}</span><span class="option-text">${opt.text}<small>${opt.sub}</small></span>`;
-    div.onclick=()=>selectOption(opt.scores);
+    div.onclick=()=>{
+      playTing();
+      selectOption(opt.scores);
+    };
     optDiv.appendChild(div);
   });
 }
@@ -627,20 +856,123 @@ function selectOption(optScores){
   else showLoading();
 }
 
+// ======== Loading with numerology chart, particles, 8 seconds ========
+function drawNumerologyChart(soulNum) {
+  const canvas = document.getElementById('numerology-chart');
+  const ctx = canvas.getContext('2d');
+  const cx = 120, cy = 120, r = 90;
+  ctx.clearRect(0, 0, 240, 240);
+
+  // Draw circle of numbers 1-9 + master numbers
+  const nums = [1,2,3,4,5,6,7,8,9];
+  const positions = [];
+  for (let i = 0; i < nums.length; i++) {
+    const angle = (i / nums.length) * Math.PI * 2 - Math.PI / 2;
+    const x = cx + r * Math.cos(angle);
+    const y = cy + r * Math.sin(angle);
+    positions.push({x, y, num: nums[i]});
+  }
+
+  // Connecting lines (dim)
+  ctx.strokeStyle = 'rgba(201,168,76,0.15)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i < nums.length; i++) {
+    ctx.beginPath();
+    ctx.moveTo(positions[i].x, positions[i].y);
+    ctx.lineTo(positions[(i+1)%nums.length].x, positions[(i+1)%nums.length].y);
+    ctx.stroke();
+  }
+
+  // Find which index matches soul number (for single digits)
+  let highlightIdx = -1;
+  const singleDigit = soulNum > 9 ? (soulNum === 11 ? 2 : soulNum === 22 ? 4 : 6) : soulNum;
+  highlightIdx = nums.indexOf(singleDigit);
+
+  // Highlight lines from the soul number position
+  if (highlightIdx >= 0) {
+    ctx.strokeStyle = 'rgba(201,168,76,0.6)';
+    ctx.lineWidth = 1.5;
+    const connections = [(highlightIdx+1)%9, (highlightIdx+8)%9, (highlightIdx+4)%9];
+    connections.forEach(j => {
+      ctx.beginPath();
+      ctx.moveTo(positions[highlightIdx].x, positions[highlightIdx].y);
+      ctx.lineTo(positions[j].x, positions[j].y);
+      ctx.stroke();
+    });
+  }
+
+  // Number dots and labels
+  for (let i = 0; i < nums.length; i++) {
+    const isActive = i === highlightIdx;
+    ctx.beginPath();
+    ctx.arc(positions[i].x, positions[i].y, isActive ? 14 : 8, 0, Math.PI * 2);
+    ctx.fillStyle = isActive ? 'rgba(201,168,76,0.3)' : 'rgba(10,61,46,0.3)';
+    ctx.fill();
+    ctx.strokeStyle = isActive ? 'var(--gold)' : 'rgba(201,168,76,0.2)';
+    ctx.lineWidth = isActive ? 2 : 1;
+    ctx.stroke();
+
+    ctx.fillStyle = isActive ? '#C9A84C' : 'rgba(201,168,76,0.5)';
+    ctx.font = isActive ? 'bold 14px Cinzel, serif' : '11px Cinzel, serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(nums[i], positions[i].x, positions[i].y);
+  }
+
+  // Center: soul number
+  ctx.fillStyle = '#C9A84C';
+  ctx.font = 'bold 18px Cinzel, serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(soulNum, cx, cy - 6);
+  ctx.fillStyle = '#3DDC97';
+  ctx.font = '10px sans-serif';
+  ctx.fillText(soulNumberInfo[soulNum].title, cx, cy + 10);
+}
+
+function createParticles() {
+  const container = document.getElementById('loading-particles');
+  container.innerHTML = '';
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    p.style.animationDelay = (Math.random() * 6) + 's';
+    p.style.width = p.style.height = (Math.random() * 2 + 1) + 'px';
+    p.style.background = Math.random() > 0.5 ? 'rgba(201,168,76,0.8)' : 'rgba(61,220,151,0.8)';
+    container.appendChild(p);
+  }
+}
+
 function showLoading(){
   showScreen('screen-loading');
   document.getElementById('loading-num').textContent=soulNumber;
+  createParticles();
+  drawNumerologyChart(soulNumber);
+
   const info=soulNumberInfo[soulNumber];
   const msgs=[
     `ソウルナンバー ${soulNumber} を解読しています...`,
     `${info.title}の魂のエネルギーを感知中...`,
     `数秘の波動とストーンの共鳴を解析中...`,
     `${info.element}のエレメントからメッセージを受信中...`,
+    `宇宙の数列パターンを照合中...`,
     `運命の石を選定しています...`
   ];
+  const textEl = document.getElementById('loading-text');
+  textEl.textContent = msgs[0];
   let i=0;
-  const iv=setInterval(()=>{i++;if(i<msgs.length)document.getElementById('loading-text').textContent=msgs[i]},900);
-  setTimeout(()=>{clearInterval(iv);showResult()},5000);
+  const iv=setInterval(()=>{
+    i++;
+    if(i<msgs.length){
+      textEl.classList.remove('loading-text-fade');
+      void textEl.offsetHeight;
+      textEl.textContent=msgs[i];
+      textEl.classList.add('loading-text-fade');
+    }
+  },1500);
+  setTimeout(()=>{clearInterval(iv);showResult()},8000);
 }
 
 function showResult(){
@@ -648,8 +980,29 @@ function showResult(){
   resultKey=soulStoneMap[soulNumber];
   const stone=stones[resultKey];
   const info=soulNumberInfo[soulNumber];
-  
+  const displayName = userName === 'あなた' ? 'あなた' : userName + 'さん';
+
   showScreen('screen-result');
+
+  // Vibration
+  if (navigator.vibrate) navigator.vibrate([100,50,200]);
+
+  // Sparkle sound
+  playSparkle();
+
+  // Save diagnosed flag (numerology専用キー)
+  localStorage.setItem('numerology_diagnosed', resultKey);
+
+  // Start countdown
+  if (!localStorage.getItem('numerology_countdown_start')) {
+    localStorage.setItem('numerology_countdown_start', Date.now().toString());
+  }
+  startCountdown();
+
+  // Message split: first line clear, rest blurred
+  const msgLines = stone.message.split('\n').filter(l => l.trim());
+  const firstLine = msgLines[0] || '';
+  const restLines = msgLines.slice(1).join('\n');
 
   // Result card
   const masterClass=info.master?'master-rarity':'';
@@ -660,14 +1013,15 @@ function showResult(){
       ${info.master?'<span style="font-size:11px;color:#FFD700">✨MASTER</span>':''}
     </div>
     <div class="result-stone-icon">${stone.icon}</div>
-    <div class="result-label">あなたの魂が求める石</div>
+    <div class="result-label">${displayName}の魂が求める石</div>
     <div class="result-name">${stone.name}</div>
     <div class="result-name-en">${stone.nameEn}</div>
     <div class="rarity-badge ${masterClass}">✨ 全体の <strong>${stone.rarity}%</strong> だけが選ばれる${info.master?'極めて希少':'希少'}な組み合わせ</div>
     <div class="result-traits">${stone.traits.map(t=>`<span class="trait-tag">${t}</span>`).join('')}</div>
     <div class="result-chakra">対応チャクラ：${stone.chakra}</div>
     <div class="message-preview">
-      <div class="message-blurred">${stone.message.replace(/\n/g,'<br>')}</div>
+      <div class="message-first-line">${firstLine}</div>
+      <div class="message-blurred">${restLines.replace(/\n/g,'<br>')}</div>
       <div class="message-overlay">
         <div class="lock-icon">🔒</div>
         <p>数秘からのメッセージ</p>
@@ -676,16 +1030,19 @@ function showResult(){
     </div>
   `;
 
+  // CTA name
+  document.getElementById('cta-name').textContent = displayName;
+
   // Numerology detail
   document.getElementById('numerology-detail').innerHTML=`
-    <h3>🔮 ソウルナンバー ${soulNumber}「${info.title}」のあなたへ</h3>
+    <h3>🔮 ソウルナンバー ${soulNumber}「${info.title}」の${displayName}へ</h3>
     <p>${info.desc}</p>
     <p class="soul-note">エレメント「${info.element}」× ${stone.name} の組み合わせは<br>${info.master?'マスターナンバーだけに許された奇跡的な共鳴':'数秘の法則が導いた運命的な共鳴'}を生みます</p>
   `;
 
   // Compatibility type
   document.getElementById('compat-type-section').innerHTML=`
-    <h3>💫 あなたの相性タイプ</h3>
+    <h3>💫 ${displayName}の相性タイプ</h3>
     <div class="compat-type-badge">${stone.compatType.name}</div>
     <p class="compat-type-desc">${stone.compatType.desc}</p>
   `;
@@ -702,8 +1059,12 @@ function showResult(){
     <div class="compat-note">この石タイプのソウルナンバーの人とシェアすると、エネルギーが高まります</div>
   `;
 
+  // Check compare param
+  checkCompareResult(resultKey, stone);
+
   // LINE CTA
-  document.getElementById('line-cta').href=`${LINE_URL}?result=${resultKey}&soul_number=${soulNumber}&month=${userBirthMonth}`;
+  const nameParam = userName !== 'あなた' ? `&name=${encodeURIComponent(userName)}` : '';
+  document.getElementById('line-cta').href=`${LINE_URL}?result=${resultKey}&soul_number=${soulNumber}&month=${userBirthMonth}${nameParam}`;
 
   // Slots
   document.getElementById('slots-left').textContent=Math.floor(Math.random()*15)+10;
@@ -716,11 +1077,12 @@ function showResult(){
     <div class="sc-name">${stone.name}</div>
     <div class="sc-rarity">✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨</div>
     <div class="sc-traits">${stone.traits.join(' / ')}</div>
-    <div class="sc-url">🔮 あなたのソウルナンバーは？</div>
+    <div class="sc-url">🔮 ${displayName}もソウルナンバー診断してみて</div>
   `;
 
   // Share URLs
-  const shareText=`🔮 数秘術×パワーストーン診断\n\nソウルナンバー${soulNumber}「${info.title}」の私に\n魂が求めた石は「${stone.name}」${stone.icon}\n\n全体のわずか${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ✨\n${stone.traits.join('・')}\n\nあなたの魂は何の石を求める？👇`;
+  const who = userName === 'あなた' ? '私' : userName;
+  const shareText=`🔮 数秘術×パワーストーン診断\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が求めた石は「${stone.name}」${stone.icon}\n\n全体のわずか${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ✨\n${stone.traits.join('・')}\n\nあなたの魂は何の石を求める？👇`;
   const shareUrl=window.location.href.split('?')[0];
   document.getElementById('share-x').href=`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
   document.getElementById('share-line').href=`https://line.me/R/msg/text/?${encodeURIComponent(shareText+'\n'+shareUrl)}`;
@@ -728,8 +1090,78 @@ function showResult(){
   generateShareImage(stone,info);
 }
 
+// ======== Countdown Timer ========
+let countdownInterval = null;
+function startCountdown() {
+  const startTime = parseInt(localStorage.getItem('numerology_countdown_start') || Date.now());
+  const display = document.getElementById('countdown-display');
+
+  function update() {
+    const elapsed = Date.now() - startTime;
+    const remaining = Math.max(0, 24 * 60 * 60 * 1000 - elapsed);
+    if (remaining <= 0) {
+      display.textContent = '00:00:00';
+      clearInterval(countdownInterval);
+      return;
+    }
+    const h = Math.floor(remaining / 3600000);
+    const m = Math.floor((remaining % 3600000) / 60000);
+    const s = Math.floor((remaining % 60000) / 1000);
+    display.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+  update();
+  countdownInterval = setInterval(update, 1000);
+}
+
+// ======== Compare / Compatibility with friend ========
+function copyCompareLink() {
+  const url = window.location.href.split('?')[0] + '?compare=' + resultKey;
+  navigator.clipboard.writeText(url).then(() => {
+    document.getElementById('compare-copied').style.display = 'block';
+    setTimeout(() => { document.getElementById('compare-copied').style.display = 'none'; }, 3000);
+  }).catch(() => {
+    prompt('このリンクを友達に送ってね：', url);
+  });
+}
+
+function checkCompareResult(myKey, myStone) {
+  const params = new URLSearchParams(window.location.search);
+  const friendKey = params.get('compare');
+  if (!friendKey || !stones[friendKey]) {
+    document.getElementById('compare-result-section').innerHTML = '';
+    return;
+  }
+  const friendStone = stones[friendKey];
+  let pct = 75;
+  myStone.compat.forEach(c => { if (c.key === friendKey) pct = c.pct; });
+  friendStone.compat.forEach(c => { if (c.key === myKey) pct = Math.max(pct, c.pct); });
+  if (myKey === friendKey) pct = 100;
+
+  let desc = '';
+  if (pct >= 95) desc = '魂レベルで深く共鳴する最高の相性です。一緒にいるだけでお互いのエネルギーが高まります。';
+  else if (pct >= 85) desc = '非常に良い相性です。お互いの足りない部分を自然に補い合えるパートナーシップ。';
+  else if (pct >= 75) desc = '良い相性です。意識的にエネルギーを交換することで、より強い絆が生まれます。';
+  else desc = 'それぞれ異なる強みを持つ組み合わせ。違いを尊重することで、新しい可能性が開きます。';
+
+  document.getElementById('compare-result-section').innerHTML = `
+    <div class="compare-result">
+      <h3>💫 友達との相性診断結果</h3>
+      <div class="compare-stones">
+        <div class="compare-stone"><div class="cs-icon">${myStone.icon}</div><div class="cs-name">${myStone.name}</div></div>
+        <div class="compare-x">×</div>
+        <div class="compare-stone"><div class="cs-icon">${friendStone.icon}</div><div class="cs-name">${friendStone.name}</div></div>
+      </div>
+      <div class="compare-pct">${pct}%</div>
+      <div class="compare-desc">${desc}</div>
+      <p style="font-size:12px;color:var(--accent-emerald);margin-top:12px;">🔮 二人の詳しい相性はLINEで確認できます</p>
+      <a href="${LINE_URL}" class="cta-button" style="margin-top:12px;font-size:14px;padding:12px 32px;">📱 LINEで詳細を見る</a>
+    </div>
+  `;
+}
+
 function generateShareImage(stone,info){
   const c=document.getElementById('shareCanvas');const ctx=c.getContext('2d');
+  const displayName = userName === 'あなた' ? '' : userName + 'さんの';
   // BG - dark green to indigo gradient
   const bg=ctx.createLinearGradient(0,0,1080,1080);
   bg.addColorStop(0,'#070E22');bg.addColorStop(0.3,'#0A3D2E');bg.addColorStop(0.7,'#0D1B3E');bg.addColorStop(1,'#061F17');
@@ -750,31 +1182,39 @@ function generateShareImage(stone,info){
   // Title
   ctx.fillStyle='#3DDC97';ctx.font='24px sans-serif';ctx.textAlign='center';
   ctx.fillText('🔮 数秘術×パワーストーン診断',540,110);
+  // Name (if provided)
+  if (displayName) {
+    ctx.fillStyle='#E8D5A3';ctx.font='22px sans-serif';
+    ctx.fillText(displayName + '診断結果',540,145);
+  }
   // Soul number
   ctx.fillStyle='#C9A84C';ctx.font='bold 28px sans-serif';
-  ctx.fillText(`SOUL NUMBER ${soulNumber}`,540,175);
+  ctx.fillText(`SOUL NUMBER ${soulNumber}`,540,175+(displayName?10:0));
   ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
-  ctx.fillText(`— ${info.title} —`,540,210);
-  if(info.master){ctx.fillStyle='#FFD700';ctx.font='bold 18px sans-serif';ctx.fillText('✨ MASTER NUMBER ✨',540,245);}
+  ctx.fillText(`— ${info.title} —`,540,210+(displayName?10:0));
+  if(info.master){ctx.fillStyle='#FFD700';ctx.font='bold 18px sans-serif';ctx.fillText('✨ MASTER NUMBER ✨',540,245+(displayName?10:0));}
   // Divider
+  const divY = info.master ? 265 : 245;
+  const offy = displayName ? 10 : 0;
   ctx.strokeStyle='rgba(201,168,76,0.4)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(340,info.master?265:245);ctx.lineTo(740,info.master?265:245);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(340,divY+offy);ctx.lineTo(740,divY+offy);ctx.stroke();
   // Label
-  ctx.fillStyle='#E8D5A3';ctx.font='20px sans-serif';ctx.fillText('あなたの魂が求める石',540,info.master?305:290);
+  ctx.fillStyle='#E8D5A3';ctx.font='20px sans-serif';
+  ctx.fillText(displayName ? displayName + '魂が求める石' : 'あなたの魂が求める石',540,divY+offy+40);
   // Icon
-  ctx.font='110px serif';ctx.fillText(stone.icon,540,info.master?440:430);
+  ctx.font='110px serif';ctx.fillText(stone.icon,540,divY+offy+175);
   // Name
-  ctx.fillStyle='#C9A84C';ctx.font='bold 48px serif';ctx.fillText(stone.name,540,info.master?530:520);
-  ctx.fillStyle='rgba(201,168,76,0.5)';ctx.font='18px sans-serif';ctx.fillText(stone.nameEn,540,info.master?565:555);
+  ctx.fillStyle='#C9A84C';ctx.font='bold 48px serif';ctx.fillText(stone.name,540,divY+offy+265);
+  ctx.fillStyle='rgba(201,168,76,0.5)';ctx.font='18px sans-serif';ctx.fillText(stone.nameEn,540,divY+offy+300);
   // Rarity
   ctx.fillStyle='#FFD700';ctx.font='bold 24px sans-serif';
-  ctx.fillText(`✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨`,540,info.master?635:625);
+  ctx.fillText(`✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨`,540,divY+offy+370);
   // Traits
   ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
-  ctx.fillText(stone.traits.join('  ·  '),540,info.master?705:690);
+  ctx.fillText(stone.traits.join('  ·  '),540,divY+offy+440);
   // Element
   ctx.fillStyle='rgba(232,213,163,0.6)';ctx.font='18px sans-serif';
-  ctx.fillText(`エレメント：${info.element} × ${stone.name}`,540,info.master?770:750);
+  ctx.fillText(`エレメント：${info.element} × ${stone.name}`,540,divY+offy+500);
   // CTA
   ctx.fillStyle='rgba(255,255,255,0.5)';ctx.font='22px sans-serif';ctx.fillText('あなたのソウルナンバーは？ 🔮',540,900);
   // Footer
@@ -789,17 +1229,29 @@ function saveShareImage(){
 
 function shareThreads(){
   const s=stones[resultKey];const info=soulNumberInfo[soulNumber];
-  const text=`🔮 数秘術×パワーストーン診断やってみた\n\nソウルナンバー${soulNumber}「${info.title}」の私に\n魂が求めた石は「${s.name}」${s.icon}\n\n全体のわずか${s.rarity}%✨\n${s.traits.join('・')}\n\n当たりすぎ…\nあなたも試してみて👇`;
+  const who = userName === 'あなた' ? '私' : userName;
+  const text=`🔮 数秘術×パワーストーン診断やってみた\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が求めた石は「${s.name}」${s.icon}\n\n全体のわずか${s.rarity}%✨\n${s.traits.join('・')}\n\n当たりすぎ…\nあなたも試してみて👇`;
   if(navigator.share)navigator.share({text,url:location.href.split('?')[0]}).catch(()=>{});
   else navigator.clipboard.writeText(text+'\n'+location.href.split('?')[0]).then(()=>alert('テキストをコピーしました！\nThreadsに貼り付けてね'));
 }
 
 function shareIG(){saveShareImage();alert('画像を保存しました！\nInstagramストーリーに貼り付けてね')}
-function retry(){showScreen('screen-start')}
 
+function retry(){
+  localStorage.removeItem('numerology_diagnosed');
+  localStorage.removeItem('numerology_countdown_start');
+  if (countdownInterval) clearInterval(countdownInterval);
+  showScreen('screen-start');
+}
+
+// ======== Init ========
 // Counter
 const base=12847;const days=Math.floor((Date.now()-new Date('2025-01-01').getTime())/86400000);
 const el=document.getElementById('total-count');if(el)el.textContent=(base+days*8+Math.floor(Math.random()*6)).toLocaleString();
+
+// Check already diagnosed on load
+document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+checkAlreadyDiagnosed();
 </script>
 </body>
 </html>
