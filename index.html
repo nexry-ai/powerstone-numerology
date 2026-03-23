@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数秘術×パワーストーン診断 | ソウルナンバーが導く運命の石</title>
+<meta property="og:title" content="数秘術×パワーストーン診断 🔮">
+<meta property="og:description" content="生年月日からソウルナンバーを算出し、あなたの魂が求めるパワーストーンを診断。運命の石を見つけよう。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Cinzel:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C9A84C;--gold-light:#E8D5A3;--gold-dim:rgba(201,168,76,0.4);
+  --green:#0A3D2E;--green-light:#145A43;--green-dark:#061F17;
+  --indigo:#0D1B3E;--indigo-light:#152952;--indigo-dark:#070E22;
+  --bg:#060E1A;--card:rgba(10,30,25,0.6);
+  --text:#E8E4D8;--sub:rgba(232,228,216,0.5);
+  --accent-emerald:#3DDC97;--accent-gold:#FFD700;
+}
+body{
+  font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;overflow-x:hidden;
+  background:linear-gradient(170deg,var(--indigo-dark) 0%,var(--bg) 30%,var(--green-dark) 70%,var(--indigo-dark) 100%);
+}
+body::before{
+  content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1px 1px at 8% 12%,rgba(201,168,76,0.8),transparent),
+    radial-gradient(1.5px 1.5px at 15% 67%,rgba(201,168,76,0.5),transparent),
+    radial-gradient(1px 1px at 22% 34%,rgba(255,255,255,0.4),transparent),
+    radial-gradient(1px 1px at 35% 82%,rgba(61,220,151,0.4),transparent),
+    radial-gradient(1.5px 1.5px at 42% 18%,rgba(201,168,76,0.6),transparent),
+    radial-gradient(1px 1px at 55% 55%,rgba(255,255,255,0.3),transparent),
+    radial-gradient(1px 1px at 63% 78%,rgba(201,168,76,0.5),transparent),
+    radial-gradient(1px 1px at 72% 25%,rgba(61,220,151,0.3),transparent),
+    radial-gradient(1.5px 1.5px at 80% 60%,rgba(201,168,76,0.7),transparent),
+    radial-gradient(1px 1px at 88% 40%,rgba(255,255,255,0.4),transparent),
+    radial-gradient(1px 1px at 93% 85%,rgba(201,168,76,0.4),transparent),
+    radial-gradient(2px 2px at 50% 50%,rgba(255,215,0,0.2),transparent);
+}
+body::after{
+  content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,0.04),transparent 60%),
+             radial-gradient(ellipse at 70% 80%,rgba(10,61,46,0.15),transparent 60%);
+}
+.container{max-width:480px;margin:0 auto;padding:20px;position:relative;z-index:1}
+
+.screen{display:none;animation:fadeIn 0.5s ease}.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Header */
+.header{text-align:center;padding:40px 0 20px}
+.header-icon{font-size:56px;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.header h1{font-family:'Cinzel','Noto Serif JP',serif;font-size:22px;color:var(--gold);margin-bottom:6px;letter-spacing:3px}
+.header .subtitle{font-size:13px;color:var(--accent-emerald);letter-spacing:2px;font-family:'Cinzel',serif}
+.header p{font-size:14px;color:var(--gold-light);opacity:0.8;line-height:1.8;margin-top:12px}
+.divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto;position:relative}
+.divider::before{content:'✦';position:absolute;top:-8px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:12px}
+
+/* Birthday */
+.birthday-section{text-align:center;margin-top:24px}
+.birthday-label{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--gold);margin-bottom:16px}
+.birthday-inputs{display:flex;gap:8px;justify-content:center;margin-bottom:8px}
+.birthday-inputs select,.birthday-inputs input{
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.25);
+  border-radius:10px;padding:12px;color:var(--text);font-size:15px;
+  font-family:'Noto Sans JP',sans-serif;appearance:none;text-align:center;transition:border-color 0.3s;
+}
+.birthday-inputs select:focus,.birthday-inputs input:focus{outline:none;border-color:var(--gold)}
+.birthday-inputs select{width:110px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A84C' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.birthday-inputs select option{background:var(--indigo);color:var(--text)}
+.birthday-inputs input{width:80px}
+.soul-display{font-size:13px;color:var(--accent-emerald);margin-top:10px;min-height:24px;transition:all 0.3s}
+.soul-display .soul-num{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);font-weight:700}
+.soul-display .master-badge{display:inline-block;background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(201,168,76,0.1));border:1px solid rgba(255,215,0,0.4);border-radius:12px;padding:2px 10px;font-size:11px;color:var(--accent-gold);margin-left:6px}
+.start-btn{
+  display:inline-block;margin-top:20px;padding:14px 40px;
+  background:linear-gradient(135deg,var(--green),var(--indigo));
+  border:1px solid var(--gold-dim);
+  color:var(--gold);font-size:16px;font-weight:700;border-radius:50px;border:1px solid var(--gold-dim);
+  cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(201,168,76,0.15);
+  font-family:'Noto Serif JP',serif;letter-spacing:2px;
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(201,168,76,0.25);border-color:var(--gold)}
+.start-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Progress */
+.progress-bar{width:100%;height:3px;background:rgba(201,168,76,0.1);border-radius:3px;margin-bottom:28px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--green-light),var(--gold));border-radius:3px;transition:width 0.5s}
+.progress-text{text-align:center;font-size:12px;color:var(--gold-dim);margin-bottom:8px;letter-spacing:1px}
+
+/* Questions */
+.question-header{text-align:center;margin-bottom:20px}
+.question-soul{font-family:'Cinzel',serif;font-size:13px;color:var(--accent-emerald);letter-spacing:2px;margin-bottom:6px}
+.question-title{font-family:'Noto Serif JP',serif;font-size:18px;color:var(--gold);text-align:center;margin-bottom:8px;line-height:1.6;white-space:pre-line}
+.question-sub{font-size:13px;text-align:center;color:var(--sub);margin-bottom:24px}
+.options{display:flex;flex-direction:column;gap:12px}
+.option{
+  background:rgba(10,61,46,0.3);border:1px solid rgba(201,168,76,0.12);
+  border-radius:12px;padding:16px 20px;cursor:pointer;transition:all 0.3s ease;
+  display:flex;align-items:center;gap:14px;
+}
+.option:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.35);transform:translateX(4px)}
+.option:active{transform:scale(0.98)}
+.option-icon{font-size:24px;flex-shrink:0}
+.option-text{font-size:15px;line-height:1.5}
+.option-text small{display:block;font-size:12px;color:var(--sub);margin-top:2px}
+
+/* Result */
+.result-card{
+  background:linear-gradient(145deg,rgba(10,61,46,0.4),rgba(13,27,62,0.5));
+  border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:32px 24px;
+  text-align:center;margin-bottom:20px;position:relative;overflow:hidden;
+}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.result-soul-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(10,61,46,0.3));
+  border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:6px 16px;margin-bottom:14px;
+}
+.result-soul-badge .soul-label{font-size:12px;color:var(--gold-light);letter-spacing:1px}
+.result-soul-badge .soul-number{font-family:'Cinzel',serif;font-size:20px;color:var(--accent-gold);font-weight:700}
+.result-stone-icon{font-size:64px;margin-bottom:12px;animation:glow 2s ease-in-out infinite}
+@keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3) drop-shadow(0 0 20px rgba(201,168,76,0.5))}}
+.result-label{font-size:12px;color:var(--gold-light);letter-spacing:4px;margin-bottom:8px}
+.result-name{font-family:'Cinzel','Noto Serif JP',serif;font-size:28px;color:var(--gold);margin-bottom:4px}
+.result-name-en{font-size:13px;color:var(--gold-dim);margin-bottom:16px;letter-spacing:2px;font-family:'Cinzel',serif}
+.rarity-badge{
+  display:inline-block;background:linear-gradient(135deg,rgba(255,215,0,0.12),rgba(10,61,46,0.2));
+  border:1px solid rgba(255,215,0,0.3);border-radius:20px;padding:6px 16px;
+  font-size:13px;color:var(--gold);margin-bottom:20px;
+}
+.rarity-badge strong{color:var(--accent-gold)}
+.master-rarity{background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(201,168,76,0.15));border-color:rgba(255,215,0,0.5)}
+.result-traits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.trait-tag{background:rgba(61,220,151,0.1);border:1px solid rgba(61,220,151,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--accent-emerald)}
+.result-chakra{font-size:13px;color:var(--gold-light);opacity:0.7}
+.message-preview{position:relative;margin-top:20px;padding:20px;background:rgba(0,0,0,0.15);border-radius:12px}
+.message-blurred{font-size:14px;line-height:2;color:var(--text);filter:blur(6px);user-select:none;pointer-events:none}
+.message-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;background:rgba(6,14,26,0.3);border-radius:12px;
+}
+.message-overlay .lock-icon{font-size:24px;margin-bottom:8px}
+.message-overlay p{font-family:'Noto Serif JP',serif;font-size:14px;color:var(--gold)}
+.message-overlay small{font-size:11px;color:var(--sub)}
+
+/* Numerology detail */
+.numerology-detail{
+  background:rgba(10,61,46,0.2);border:1px solid rgba(61,220,151,0.15);
+  border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;
+}
+.numerology-detail h3{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--accent-emerald);margin-bottom:12px}
+.numerology-detail p{font-size:13px;color:var(--sub);line-height:1.8}
+.numerology-detail .soul-note{font-size:12px;color:var(--gold-light);margin-top:10px;font-style:italic}
+
+/* Compat */
+.compat-section{
+  background:rgba(13,27,62,0.3);border:1px solid rgba(201,168,76,0.12);
+  border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;
+}
+.compat-section h3{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold);margin-bottom:14px}
+.compat-row{display:flex;justify-content:center;gap:24px;margin-bottom:8px}
+.compat-item{text-align:center}
+.compat-item .stone-mini{font-size:32px}
+.compat-item .compat-name{font-size:12px;color:var(--gold-light);margin-top:4px}
+.compat-item .compat-soul{font-size:11px;color:var(--accent-emerald);font-family:'Cinzel',serif;margin-top:2px}
+.compat-item .compat-pct{font-size:14px;color:var(--accent-emerald);font-weight:700}
+.compat-note{font-size:11px;color:var(--sub);margin-top:8px}
+
+/* Compatibility type badge */
+.compat-type-section{
+  background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(10,61,46,0.15));
+  border:1px solid rgba(201,168,76,0.15);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;
+}
+.compat-type-section h3{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold);margin-bottom:10px}
+.compat-type-badge{
+  display:inline-block;background:linear-gradient(135deg,rgba(61,220,151,0.15),rgba(201,168,76,0.1));
+  border:1px solid rgba(61,220,151,0.3);border-radius:24px;padding:8px 20px;
+  font-size:14px;color:var(--accent-emerald);font-weight:700;margin-bottom:8px;
+}
+.compat-type-desc{font-size:12px;color:var(--sub);line-height:1.7}
+
+/* CTA */
+.cta-section{
+  background:linear-gradient(145deg,rgba(10,61,46,0.3),rgba(13,27,62,0.3));
+  border:1px solid rgba(201,168,76,0.2);border-radius:16px;padding:24px;
+  text-align:center;margin-bottom:20px;
+}
+.cta-section h3{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--gold);margin-bottom:12px;line-height:1.6}
+.cta-benefits{text-align:left;margin:16px 0}
+.cta-benefits li{font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:8px;list-style:none;padding-left:24px;position:relative;line-height:1.6}
+.cta-benefits li::before{content:'✓';position:absolute;left:0;color:var(--accent-emerald);font-weight:700}
+.cta-button{
+  display:inline-block;background:linear-gradient(135deg,#06C755,#04A847);color:white;
+  font-size:16px;font-weight:700;padding:16px 44px;border-radius:50px;text-decoration:none;
+  transition:all 0.3s ease;box-shadow:0 4px 15px rgba(6,199,85,0.3);animation:ctaPulse 2s ease-in-out infinite;
+}
+@keyframes ctaPulse{0%,100%{box-shadow:0 4px 15px rgba(6,199,85,0.3)}50%{box-shadow:0 4px 25px rgba(6,199,85,0.5)}}
+.cta-button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(6,199,85,0.4)}
+.cta-sub{font-size:11px;color:var(--sub);margin-top:12px}
+.cta-urgency{font-size:12px;color:#FF6B6B;margin-top:10px}
+
+/* Share */
+.share-section{text-align:center;margin-bottom:40px}
+.share-section>p{font-size:14px;color:var(--gold-light);margin-bottom:6px}
+.share-sub{font-size:12px;color:var(--sub);margin-bottom:16px}
+.share-card-preview{
+  background:linear-gradient(145deg,rgba(10,61,46,0.4),rgba(13,27,62,0.5));
+  border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:24px 20px;text-align:center;margin-bottom:12px;
+}
+.share-card-preview .sc-soul{font-family:'Cinzel',serif;font-size:13px;color:var(--accent-emerald);letter-spacing:2px;margin-bottom:4px}
+.share-card-preview .sc-icon{font-size:40px;margin-bottom:8px}
+.share-card-preview .sc-label{font-size:10px;color:var(--gold-light);letter-spacing:3px}
+.share-card-preview .sc-name{font-family:'Cinzel','Noto Serif JP',serif;font-size:22px;color:var(--gold);margin:4px 0}
+.share-card-preview .sc-rarity{font-size:12px;color:var(--accent-gold);margin-bottom:12px}
+.share-card-preview .sc-traits{font-size:11px;color:var(--accent-emerald);line-height:1.8}
+.share-card-preview .sc-url{font-size:10px;color:var(--sub);margin-top:12px}
+.save-card-btn{
+  display:inline-block;padding:10px 20px;background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.2);border-radius:8px;color:var(--text);
+  font-size:13px;cursor:pointer;transition:all 0.3s;margin-bottom:16px;
+}
+.save-card-btn:hover{background:rgba(201,168,76,0.15)}
+.share-buttons{display:flex;gap:16px;justify-content:center;margin-bottom:16px}
+.share-btn-label{text-align:center}
+.share-btn-label span{display:block;font-size:10px;color:var(--sub);margin-top:4px}
+.share-btn{
+  width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:20px;text-decoration:none;transition:transform 0.2s;cursor:pointer;color:white;
+}
+.share-btn:hover{transform:scale(1.1)}
+.share-btn.twitter{background:#000;border:1px solid rgba(255,255,255,0.2)}
+.share-btn.line-share{background:#06C755}
+.share-btn.threads{background:linear-gradient(135deg,#333,#000);border:1px solid rgba(255,255,255,0.2)}
+.share-btn.instagram{background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737)}
+.retry-btn{
+  display:inline-block;margin-top:16px;padding:10px 24px;border:1px solid rgba(201,168,76,0.2);
+  border-radius:8px;color:var(--gold-dim);font-size:13px;cursor:pointer;background:transparent;transition:all 0.3s;
+}
+.retry-btn:hover{background:rgba(201,168,76,0.08);color:var(--gold)}
+
+/* Loading */
+.loading{text-align:center;padding:60px 0}
+.loading-orb{
+  width:70px;height:70px;border-radius:50%;margin:0 auto 24px;position:relative;
+  background:radial-gradient(circle,rgba(201,168,76,0.6),rgba(10,61,46,0.8));
+  animation:orbPulse 2s ease-in-out infinite;
+}
+.loading-orb::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid transparent;border-top-color:var(--gold);animation:spin 2s linear infinite;
+}
+@keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(201,168,76,0.3)}50%{transform:scale(1.1);box-shadow:0 0 40px rgba(201,168,76,0.5)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-num{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.loading p{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold-light);animation:fadeInOut 2s ease-in-out infinite}
+@keyframes fadeInOut{0%,100%{opacity:0.4}50%{opacity:1}}
+
+.footer{text-align:center;padding:20px;font-size:11px;color:rgba(255,255,255,0.15)}
+#shareCanvas{display:none}
+</style>
+</head>
+<body>
+
+<canvas id="shareCanvas" width="1080" height="1080"></canvas>
+
+<div class="container">
+
+<!-- START -->
+<div class="screen active" id="screen-start">
+  <div class="header">
+    <div class="header-icon">🔮</div>
+    <h1>数秘術×パワーストーン診断</h1>
+    <p class="subtitle">— Numerology × Power Stone —</p>
+    <div class="divider"></div>
+    <p>生年月日からソウルナンバーを算出し<br>あなたの魂が求めるパワーストーンを導きます</p>
+  </div>
+
+  <div class="birthday-section">
+    <div class="birthday-label">🔮 生年月日を教えてください</div>
+    <div class="birthday-inputs">
+      <select id="birth-year"></select>
+      <select id="birth-month"></select>
+      <select id="birth-day"></select>
+    </div>
+    <div class="soul-display" id="soul-display"></div>
+    <button class="start-btn" id="start-btn" onclick="startQuiz()" disabled>魂の石を見つける 🔮</button>
+  </div>
+
+  <p style="text-align:center;font-size:11px;color:var(--sub);margin-top:30px;">
+    累計 <span style="color:var(--accent-emerald);" id="total-count">12,847</span>人 が診断済み
+  </p>
+</div>
+
+<!-- QUESTION -->
+<div class="screen" id="screen-question">
+  <div class="question-header">
+    <div class="question-soul" id="question-soul"></div>
+  </div>
+  <div class="progress-text" id="progress-text"></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="question-title" id="question-title"></div>
+  <div class="question-sub" id="question-sub"></div>
+  <div class="options" id="options"></div>
+</div>
+
+<!-- LOADING -->
+<div class="screen" id="screen-loading">
+  <div class="loading">
+    <div class="loading-orb"><span class="loading-num" id="loading-num"></span></div>
+    <p id="loading-text">ソウルナンバーを解読しています...</p>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="screen" id="screen-result">
+  <div class="result-card" id="result-card"></div>
+  <div class="numerology-detail" id="numerology-detail"></div>
+  <div class="compat-type-section" id="compat-type-section"></div>
+  <div class="compat-section" id="compat-section"></div>
+  <div class="cta-section">
+    <h3>🔓 あなた専用の<br>数秘鑑定書を受け取る</h3>
+    <ul class="cta-benefits">
+      <li>ソウルナンバーからの詳細メッセージ全文</li>
+      <li>あなたの数秘×石の深層レポート</li>
+      <li>弱点を補うサブストーン3選</li>
+      <li>今月の数秘サイクルと開運アクション</li>
+      <li>ソウルナンバー別・特別鑑定</li>
+    </ul>
+    <a href="#" class="cta-button" id="line-cta">📱 LINEで鑑定書を受け取る</a>
+    <p class="cta-sub">無料・30秒で完了・いつでもブロックOK</p>
+    <p class="cta-urgency">🔥 本日あと <strong id="slots-left">21</strong>名 限定</p>
+  </div>
+  <div class="share-section">
+    <p>🔮 診断結果をシェアしよう</p>
+    <p class="share-sub">同じソウルナンバーの人、相性の良い数字の人が見つかるかも？</p>
+    <div class="share-card-preview" id="share-card-preview"></div>
+    <button class="save-card-btn" onclick="saveShareImage()">📷 結果画像を保存する</button>
+    <div class="share-buttons">
+      <div class="share-btn-label"><a class="share-btn twitter" id="share-x" target="_blank">𝕏</a><span>X</span></div>
+      <div class="share-btn-label"><a class="share-btn line-share" id="share-line" target="_blank">L</a><span>LINE</span></div>
+      <div class="share-btn-label"><a class="share-btn threads" onclick="shareThreads()">🔗</a><span>Threads</span></div>
+      <div class="share-btn-label"><a class="share-btn instagram" onclick="shareIG()">📸</a><span>ストーリー</span></div>
+    </div>
+    <button class="retry-btn" onclick="retry()">もう一度診断する</button>
+  </div>
+</div>
+
+</div>
+<div class="footer">© 数秘術×パワーストーン診断</div>
+
+<script>
+const LINE_URL='#'; // TODO: LINE公式URL
+
+// --- Soul Number Calculation ---
+function calcSoulNumber(y,m,d){
+  const digits = `${y}${m}${d}`.split('').map(Number);
+  let sum = digits.reduce((a,b)=>a+b,0);
+  // Keep reducing until single digit, but preserve master numbers
+  while(sum>9 && sum!==11 && sum!==22 && sum!==33){
+    sum = String(sum).split('').map(Number).reduce((a,b)=>a+b,0);
+  }
+  return sum;
+}
+
+const soulNumberInfo = {
+  1:{title:'開拓者',desc:'リーダーシップと独立心。新しい道を切り開く使命を持つ魂。',element:'火',keyword:'始まり・独立・創造'},
+  2:{title:'調和者',desc:'協調性と感受性。人と人を繋ぐ架け橋となる使命を持つ魂。',element:'水',keyword:'調和・共感・受容'},
+  3:{title:'表現者',desc:'創造力と楽観性。喜びと美を世界に表現する使命を持つ魂。',element:'光',keyword:'創造・表現・喜び'},
+  4:{title:'建設者',desc:'安定と秩序。堅実な基盤を築き上げる使命を持つ魂。',element:'地',keyword:'安定・構築・忍耐'},
+  5:{title:'冒険者',desc:'自由と変化。新しい経験を通じて成長する使命を持つ魂。',element:'風',keyword:'自由・変化・冒険'},
+  6:{title:'慈愛者',desc:'愛と責任。家族やコミュニティを守り育てる使命を持つ魂。',element:'水',keyword:'愛・責任・癒し'},
+  7:{title:'探究者',desc:'知恵と内省。真理を探求し精神的成長を遂げる使命を持つ魂。',element:'宇宙',keyword:'探究・直感・叡智'},
+  8:{title:'達成者',desc:'力と豊穣。物質的・精神的な豊かさを実現する使命を持つ魂。',element:'金',keyword:'成功・権威・豊穣'},
+  9:{title:'完成者',desc:'慈悲と普遍的愛。すべてを包み込み変容させる使命を持つ魂。',element:'虹',keyword:'完成・慈悲・変容'},
+  11:{title:'覚醒者',desc:'高い直感力とスピリチュアルな洞察。人々を目覚めさせる使命を持つマスターソウル。',element:'雷',keyword:'覚醒・直感・啓示',master:true},
+  22:{title:'大建築家',desc:'壮大なビジョンを現実化する力。世界を変える基盤を築くマスターソウル。',element:'大地',keyword:'実現・壮大・変革',master:true},
+  33:{title:'大導師',desc:'無条件の愛と献身。すべての存在を癒し導くマスターソウル。',element:'聖光',keyword:'無条件の愛・導き・奉仕',master:true},
+};
+
+// --- Questions (5 questions, soul-number influenced) ---
+const questions = [
+  {
+    title:"今、魂が最も\n強く求めているものは？",
+    sub:"直感で選んでください",
+    options:[
+      {icon:"🛡️",text:"安心できる守りの力",sub:"揺らがない基盤が欲しい",scores:{protect:3,ground:2}},
+      {icon:"💡",text:"真実を見通す直感",sub:"迷いを断ち切る洞察力",scores:{intuition:3,wisdom:2}},
+      {icon:"❤️",text:"深い愛と繋がり",sub:"魂レベルの絆を感じたい",scores:{love:3,heal:1}},
+      {icon:"⚡",text:"行動を起こす決断力",sub:"今すぐ変わりたい",scores:{power:3,transform:1}}
+    ]
+  },
+  {
+    title:"夜、静かに自分と\n向き合う時間に浮かぶのは？",
+    sub:"最近多いものを",
+    options:[
+      {icon:"💰",text:"豊かさや経済的な安定",sub:"もっと余裕が欲しい",scores:{wealth:3,power:1}},
+      {icon:"🌙",text:"自分の内面や生き方",sub:"本当の自分とは何か",scores:{wisdom:3,intuition:1}},
+      {icon:"💫",text:"人間関係の悩み",sub:"誰かとの関係が気になる",scores:{love:3,heal:1}},
+      {icon:"🔥",text:"やりたいことへの焦り",sub:"時間が足りない焦燥感",scores:{transform:3,power:1}}
+    ]
+  },
+  {
+    title:"惹かれる数字の\n組み合わせは？",
+    sub:"数秘のシンクロニシティ",
+    options:[
+      {icon:"1️⃣",text:"111 / 1111",sub:"新しい始まりの暗示",scores:{power:3,transform:1}},
+      {icon:"4️⃣",text:"444 / 888",sub:"安定と豊穣の暗示",scores:{wealth:2,ground:2,protect:1}},
+      {icon:"5️⃣",text:"555 / 777",sub:"変化と覚醒の暗示",scores:{intuition:2,transform:2,wisdom:1}},
+      {icon:"3️⃣",text:"333 / 999",sub:"完成と愛の暗示",scores:{love:2,heal:2,wisdom:1}}
+    ]
+  },
+  {
+    title:"今の自分に\n一番足りないものは？",
+    sub:"正直に感じてください",
+    options:[
+      {icon:"🌿",text:"地に足をつける安定感",sub:"ふわふわして落ち着かない",scores:{ground:3,protect:1}},
+      {icon:"🦅",text:"高い視点で物事を見る力",sub:"目の前のことに囚われがち",scores:{wisdom:3,intuition:1}},
+      {icon:"💎",text:"自分の価値を信じる力",sub:"自信が持てない",scores:{power:3,wealth:1}},
+      {icon:"🌊",text:"感情を解放する力",sub:"溜め込みすぎている",scores:{heal:3,love:1}}
+    ]
+  },
+  {
+    title:"最後に。\n宇宙に一つだけ願うなら？",
+    sub:"魂の声を聴いて",
+    options:[
+      {icon:"🔮",text:"使命を知りたい",sub:"自分は何のために生まれたのか",scores:{wisdom:3,intuition:2}},
+      {icon:"🌟",text:"豊かさの流れに乗りたい",sub:"すべてが循環する人生を",scores:{wealth:3,power:1}},
+      {icon:"💕",text:"魂で繋がる愛が欲しい",sub:"運命の人との出会い",scores:{love:3,heal:1}},
+      {icon:"🛡️",text:"ネガティブから解放されたい",sub:"心の平穏と浄化",scores:{protect:2,heal:2,ground:1}}
+    ]
+  }
+];
+
+// --- 12 Stones ---
+const stones = {
+  garnet:{
+    name:'ガーネット',nameEn:'GARNET',icon:'❤️‍🔥',rarity:9.2,soulNums:[1],
+    traits:['情熱の着火','リーダーの資質','不屈の意志','新しい始まり'],
+    chakra:'第1チャクラ（ルート）',
+    compat:[{key:'citrine',pct:93},{key:'tiger',pct:88}],
+    compatType:{name:'開拓パートナー',desc:'お互いの行動力を高め合い、共に新しい道を切り開ける関係'},
+    message:'ソウルナンバー1のあなたは、生まれながらのパイオニア。\n\nガーネットは「実りの石」と呼ばれ、あなたの魂に宿る開拓者の炎を力強く燃やし続けます。\n\n迷いの中にいる時、この石はあなたに「最初の一歩」を踏み出す勇気を与え、持つ者の意志を揺るぎないものにします。情熱が道を照らし、すべてが動き出します。'
+  },
+  moonstone:{
+    name:'ムーンストーン',nameEn:'MOONSTONE',icon:'🌙',rarity:10.5,soulNums:[2],
+    traits:['感受性の開花','月のリズム','共感の深化','パートナーシップ運'],
+    chakra:'第2チャクラ（サクラル）',
+    compat:[{key:'rose',pct:96},{key:'aquamarine',pct:91}],
+    compatType:{name:'共鳴パートナー',desc:'感情のレベルで深く繋がり、言葉がなくても通じ合える関係'},
+    message:'ソウルナンバー2のあなたは、繊細な感受性で人の心を映す鏡のような存在。\n\nムーンストーンは月の満ち欠けのように、あなたの感情のリズムを整え、直感力を高めます。\n\n人との調和を大切にするあなたですが、時に自分を見失いがち。この石はあなた自身の内なる光を思い出させてくれます。'
+  },
+  citrine:{
+    name:'シトリン',nameEn:'CITRINE',icon:'🔶',rarity:13.8,soulNums:[3],
+    traits:['創造力の爆発','喜びの増幅','金運・成功運','自己表現力'],
+    chakra:'第3チャクラ（ソーラープレクサス）',
+    compat:[{key:'garnet',pct:92},{key:'sunstone',pct:89}],
+    compatType:{name:'創造パートナー',desc:'クリエイティビティが共鳴し、一緒にいると次々とアイデアが湧く関係'},
+    message:'ソウルナンバー3のあなたは、宇宙から「表現の才能」を授かった魂。\n\nシトリンは「太陽の石」。あなたの中に眠る創造力を目覚めさせ、自己表現を豊かにします。\n\nアイデアを形にする力、人を惹きつける魅力、そして金運——すべてがこの石と共鳴して動き出します。'
+  },
+  tiger:{
+    name:'タイガーアイ',nameEn:"TIGER'S EYE",icon:'🐯',rarity:14.2,soulNums:[4],
+    traits:['堅実な基盤構築','洞察力強化','仕事運上昇','グラウンディング'],
+    chakra:'第3チャクラ（ソーラープレクサス）',
+    compat:[{key:'obsidian',pct:91},{key:'garnet',pct:87}],
+    compatType:{name:'安定パートナー',desc:'お互いの基盤を支え合い、揺るがない信頼関係を築ける相手'},
+    message:'ソウルナンバー4のあなたは、堅実さと秩序を重んじる「建設者の魂」。\n\nタイガーアイは「虎の目」の名の通り、物事の本質を見抜く力を与えます。\n\n着実に積み上げてきた努力が、この石と出会うことで「揺るがない成果」へと変わります。焦る必要はありません。あなたのペースが正解です。'
+  },
+  aquamarine:{
+    name:'アクアマリン',nameEn:'AQUAMARINE',icon:'💠',rarity:8.7,soulNums:[5],
+    traits:['自由への解放','コミュニケーション力','旅の守護','変化への適応力'],
+    chakra:'第5チャクラ（スロート）',
+    compat:[{key:'moonstone',pct:90},{key:'labradorite',pct:88}],
+    compatType:{name:'冒険パートナー',desc:'一緒にいると世界が広がり、新しい経験への扉が開く関係'},
+    message:'ソウルナンバー5のあなたは、風のように自由で、変化を恐れない冒険者の魂。\n\nアクアマリンは「海の水」を意味し、旅人の守護石として古来愛されてきました。\n\nあなたの落ち着きのなさは「弱さ」ではなく「可能性」。この石はその自由な魂を守りながら、必要な時に帰るべき港を示してくれます。'
+  },
+  rose:{
+    name:'ローズクォーツ',nameEn:'ROSE QUARTZ',icon:'🌹',rarity:17.5,soulNums:[6],
+    traits:['無条件の愛','家族運上昇','自己愛の回復','心の傷の癒し'],
+    chakra:'第4チャクラ（ハート）',
+    compat:[{key:'moonstone',pct:97},{key:'amethyst',pct:90}],
+    compatType:{name:'癒しパートナー',desc:'お互いを無条件に受け入れ、一緒にいるだけで心が安らぐ関係'},
+    message:'ソウルナンバー6のあなたは、深い愛と責任感を持つ「慈愛の魂」。\n\nローズクォーツは「愛の女神の石」。あなたの献身的な愛をさらに深めつつ、自分自身を愛することも教えてくれます。\n\n他者のために尽くしすぎて疲れていませんか？まず自分を満たすこと。それがあなたの愛を永遠に枯れないものにする鍵です。'
+  },
+  lapis:{
+    name:'ラピスラズリ',nameEn:'LAPIS LAZULI',icon:'💎',rarity:7.4,soulNums:[7],
+    traits:['叡智への到達','第三の目覚醒','真実の探究','瞑想の深化'],
+    chakra:'第6チャクラ（サードアイ）',
+    compat:[{key:'amethyst',pct:95},{key:'labradorite',pct:92}],
+    compatType:{name:'叡智パートナー',desc:'深い対話と精神的な探究を共有し、互いの意識を高め合える関係'},
+    message:'ソウルナンバー7のあなたは、真理を求め続ける「探究者の魂」。\n\nラピスラズリは古来「天空の石」と呼ばれ、叡智と真実の象徴。あなたの深い内省と直感力を最高レベルに引き上げます。\n\n孤独を感じることがあるかもしれません。でもそれは、より深い真理に到達するための聖なる時間。この石がその旅路を照らします。'
+  },
+  obsidian:{
+    name:'オブシディアン',nameEn:'OBSIDIAN',icon:'🖤',rarity:11.3,soulNums:[8],
+    traits:['権威と威厳','邪気浄化','ビジネス運','目標達成力'],
+    chakra:'第1チャクラ（ルート）',
+    compat:[{key:'tiger',pct:93},{key:'citrine',pct:86}],
+    compatType:{name:'成功パートナー',desc:'ビジネスや目標において最強のタッグを組み、互いに高め合える関係'},
+    message:'ソウルナンバー8のあなたは、∞（無限）の力を秘めた「達成者の魂」。\n\nオブシディアンは宇宙の溶岩から生まれた「権力の石」。成功を阻むあらゆる障害を断ち切り、あなたの前に道を開きます。\n\n8は横にすると∞。あなたの豊かさは無限の循環。この石と共に、与えて受け取る永遠のサイクルに入りましょう。'
+  },
+  amethyst:{
+    name:'アメジスト',nameEn:'AMETHYST',icon:'💜',rarity:15.6,soulNums:[9],
+    traits:['魂の浄化','慈悲の心','完成と手放し','スピリチュアル覚醒'],
+    chakra:'第7チャクラ（クラウン）',
+    compat:[{key:'lapis',pct:94},{key:'rose',pct:91}],
+    compatType:{name:'浄化パートナー',desc:'お互いの魂を清め合い、より高い次元へと導き合う神聖な関係'},
+    message:'ソウルナンバー9のあなたは、すべてを包み込む「完成者の魂」。\n\nアメジストは「魂の浄化石」。宇宙で最も神聖とされる紫の波動を宿し、あなたの慈悲深い心と共鳴します。\n\n過去のすべてを受け入れ、手放す時が来ています。この石があなたを最終的な「完成」へと導きます。'
+  },
+  labradorite:{
+    name:'ラブラドライト',nameEn:'LABRADORITE',icon:'🌌',rarity:4.2,soulNums:[11],
+    traits:['高次元の直感','覚醒の加速','チャネリング力','光と影の統合'],
+    chakra:'第6・第7チャクラ',
+    compat:[{key:'lapis',pct:96},{key:'moldavite',pct:93}],
+    compatType:{name:'覚醒パートナー',desc:'お互いのスピリチュアルな覚醒を加速させ、高次元の意識を共有できる稀有な関係'},
+    message:'マスターナンバー11のあなたは、極めて稀な「覚醒者の魂」。人口の約5%しか持たない特別な数字です。\n\nラブラドライトは光の角度で虹色に輝く「変容の石」。あなたの高い直感力とシンクロし、見えない世界のメッセージを明確に受け取る力を与えます。\n\n11は「二つの柱」——物質と精神、光と影。その統合があなたの使命です。'
+  },
+  moldavite:{
+    name:'モルダバイト',nameEn:'MOLDAVITE',icon:'☄️',rarity:2.8,soulNums:[22],
+    traits:['宇宙的ビジョン','壮大な実現力','運命の加速','カルマの解放'],
+    chakra:'全チャクラ',
+    compat:[{key:'labradorite',pct:94},{key:'obsidian',pct:89}],
+    compatType:{name:'変革パートナー',desc:'共に世界を変える壮大なビジョンを持ち、それを現実化する力を合わせられる関係'},
+    message:'マスターナンバー22のあなたは、最も強力な「大建築家の魂」。地球上で最も稀な数字の一つです。\n\nモルダバイトは隕石衝突で生まれた「宇宙の石」。地球外のエネルギーを宿す唯一の天然ガラスです。\n\nあなたの壮大なビジョンを現実化する力を持つのは、この宇宙から来た石だけ。22は「マスタービルダー」——夢を現実にする魂です。'
+  },
+  sunstone:{
+    name:'サンストーン',nameEn:'SUNSTONE',icon:'☀️',rarity:1.9,soulNums:[33],
+    traits:['聖なる癒し','無条件の奉仕','カリスマ性','魂の光'],
+    chakra:'全チャクラ（特にハート）',
+    compat:[{key:'rose',pct:95},{key:'amethyst',pct:92}],
+    compatType:{name:'聖愛パートナー',desc:'無条件の愛で互いを包み、存在するだけで周囲を癒す聖なる関係'},
+    message:'マスターナンバー33のあなたは、地球上で最も稀な「大導師の魂」。全人口のわずか1%未満という奇跡の数字です。\n\nサンストーンは太陽の光を宿す「聖なる輝きの石」。あなたの無条件の愛と献身のエネルギーを、枯れることなく燃やし続けます。\n\n33は「マスターヒーラー」。あなたが存在するだけで、周囲が癒される。その力をこの石がさらに増幅します。'
+  }
+};
+
+// Soul number → stone mapping
+const soulStoneMap = {1:'garnet',2:'moonstone',3:'citrine',4:'tiger',5:'aquamarine',6:'rose',7:'lapis',8:'obsidian',9:'amethyst',11:'labradorite',22:'moldavite',33:'sunstone'};
+
+// Score categories
+const scoreCategories = ['protect','intuition','love','power','heal','transform','wealth','wisdom','ground'];
+
+let soulNumber = null;
+let userBirthMonth = null;
+let currentQuestion = 0;
+let scores = {};
+let resultKey = '';
+
+// --- Birthday selectors ---
+const yearSel=document.getElementById('birth-year');
+const monthSel=document.getElementById('birth-month');
+const daySel=document.getElementById('birth-day');
+
+yearSel.innerHTML='<option value="">年</option>';
+for(let y=2010;y>=1940;y--)yearSel.innerHTML+=`<option value="${y}">${y}年</option>`;
+monthSel.innerHTML='<option value="">月</option>';
+for(let m=1;m<=12;m++)monthSel.innerHTML+=`<option value="${m}">${m}月</option>`;
+daySel.innerHTML='<option value="">日</option>';
+for(let d=1;d<=31;d++)daySel.innerHTML+=`<option value="${d}">${d}日</option>`;
+
+function checkBirthday(){
+  const y=yearSel.value,m=monthSel.value,d=daySel.value;
+  const btn=document.getElementById('start-btn');
+  const disp=document.getElementById('soul-display');
+  if(y&&m&&d){
+    soulNumber=calcSoulNumber(parseInt(y),parseInt(m),parseInt(d));
+    userBirthMonth=parseInt(m);
+    const info=soulNumberInfo[soulNumber];
+    let html=`ソウルナンバー <span class="soul-num">${soulNumber}</span>`;
+    if(info.master) html+=`<span class="master-badge">✨ マスターナンバー</span>`;
+    html+=`<br><span style="font-size:12px;color:var(--gold-light)">${info.title} — ${info.keyword}</span>`;
+    disp.innerHTML=html;
+    btn.disabled=false;
+  } else {
+    disp.innerHTML='';
+    btn.disabled=true;
+  }
+}
+yearSel.onchange=monthSel.onchange=daySel.onchange=checkBirthday;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const s=document.getElementById(id);s.classList.add('active');
+  s.style.animation='none';s.offsetHeight;s.style.animation='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function startQuiz(){
+  if(!soulNumber) return;
+  currentQuestion=0;
+  scores={};
+  scoreCategories.forEach(c=>scores[c]=0);
+  // Soul number gives base affinity to its stone
+  const baseKey=soulStoneMap[soulNumber];
+  if(baseKey){
+    // Give a moderate base score based on soul number traits
+    const s=stones[baseKey];
+    // We don't bias too hard — questions matter
+  }
+  showQuestion();
+}
+
+function showQuestion(){
+  const q=questions[currentQuestion];
+  const info=soulNumberInfo[soulNumber];
+  showScreen('screen-question');
+  document.getElementById('question-soul').textContent=`SOUL NUMBER ${soulNumber} — ${info.title}`;
+  document.getElementById('progress-text').textContent=`${currentQuestion+1} / ${questions.length}`;
+  document.getElementById('progress-fill').style.width=`${((currentQuestion+1)/questions.length)*100}%`;
+  document.getElementById('question-title').textContent=q.title;
+  document.getElementById('question-sub').textContent=q.sub;
+  const optDiv=document.getElementById('options');optDiv.innerHTML='';
+  q.options.forEach(opt=>{
+    const div=document.createElement('div');div.className='option';
+    div.innerHTML=`<span class="option-icon">${opt.icon}</span><span class="option-text">${opt.text}<small>${opt.sub}</small></span>`;
+    div.onclick=()=>selectOption(opt.scores);
+    optDiv.appendChild(div);
+  });
+}
+
+function selectOption(optScores){
+  for(const[k,v]of Object.entries(optScores))scores[k]=(scores[k]||0)+v;
+  currentQuestion++;
+  if(currentQuestion<questions.length) showQuestion();
+  else showLoading();
+}
+
+function showLoading(){
+  showScreen('screen-loading');
+  document.getElementById('loading-num').textContent=soulNumber;
+  const info=soulNumberInfo[soulNumber];
+  const msgs=[
+    `ソウルナンバー ${soulNumber} を解読しています...`,
+    `${info.title}の魂のエネルギーを感知中...`,
+    `数秘の波動とストーンの共鳴を解析中...`,
+    `${info.element}のエレメントからメッセージを受信中...`,
+    `運命の石を選定しています...`
+  ];
+  let i=0;
+  const iv=setInterval(()=>{i++;if(i<msgs.length)document.getElementById('loading-text').textContent=msgs[i]},900);
+  setTimeout(()=>{clearInterval(iv);showResult()},5000);
+}
+
+function showResult(){
+  // Primary: soul number's stone
+  resultKey=soulStoneMap[soulNumber];
+  const stone=stones[resultKey];
+  const info=soulNumberInfo[soulNumber];
+  
+  showScreen('screen-result');
+
+  // Result card
+  const masterClass=info.master?'master-rarity':'';
+  document.getElementById('result-card').innerHTML=`
+    <div class="result-soul-badge">
+      <span class="soul-label">SOUL NUMBER</span>
+      <span class="soul-number">${soulNumber}</span>
+      ${info.master?'<span style="font-size:11px;color:#FFD700">✨MASTER</span>':''}
+    </div>
+    <div class="result-stone-icon">${stone.icon}</div>
+    <div class="result-label">あなたの魂が求める石</div>
+    <div class="result-name">${stone.name}</div>
+    <div class="result-name-en">${stone.nameEn}</div>
+    <div class="rarity-badge ${masterClass}">✨ 全体の <strong>${stone.rarity}%</strong> だけが選ばれる${info.master?'極めて希少':'希少'}な組み合わせ</div>
+    <div class="result-traits">${stone.traits.map(t=>`<span class="trait-tag">${t}</span>`).join('')}</div>
+    <div class="result-chakra">対応チャクラ：${stone.chakra}</div>
+    <div class="message-preview">
+      <div class="message-blurred">${stone.message.replace(/\n/g,'<br>')}</div>
+      <div class="message-overlay">
+        <div class="lock-icon">🔒</div>
+        <p>数秘からのメッセージ</p>
+        <small>LINE追加で全文を読む ↓</small>
+      </div>
+    </div>
+  `;
+
+  // Numerology detail
+  document.getElementById('numerology-detail').innerHTML=`
+    <h3>🔮 ソウルナンバー ${soulNumber}「${info.title}」のあなたへ</h3>
+    <p>${info.desc}</p>
+    <p class="soul-note">エレメント「${info.element}」× ${stone.name} の組み合わせは<br>${info.master?'マスターナンバーだけに許された奇跡的な共鳴':'数秘の法則が導いた運命的な共鳴'}を生みます</p>
+  `;
+
+  // Compatibility type
+  document.getElementById('compat-type-section').innerHTML=`
+    <h3>💫 あなたの相性タイプ</h3>
+    <div class="compat-type-badge">${stone.compatType.name}</div>
+    <p class="compat-type-desc">${stone.compatType.desc}</p>
+  `;
+
+  // Compatible stones
+  const compatHtml=stone.compat.map(c=>{
+    const cs=stones[c.key];
+    const csNums=cs.soulNums.join('・');
+    return `<div class="compat-item"><div class="stone-mini">${cs.icon}</div><div class="compat-name">${cs.name}</div><div class="compat-soul">No.${csNums}</div><div class="compat-pct">${c.pct}%</div></div>`;
+  }).join('');
+  document.getElementById('compat-section').innerHTML=`
+    <h3>✦ 相性の良い石タイプ</h3>
+    <div class="compat-row">${compatHtml}</div>
+    <div class="compat-note">この石タイプのソウルナンバーの人とシェアすると、エネルギーが高まります</div>
+  `;
+
+  // LINE CTA
+  document.getElementById('line-cta').href=`${LINE_URL}?result=${resultKey}&soul_number=${soulNumber}&month=${userBirthMonth}`;
+
+  // Slots
+  document.getElementById('slots-left').textContent=Math.floor(Math.random()*15)+10;
+
+  // Share card preview
+  document.getElementById('share-card-preview').innerHTML=`
+    <div class="sc-soul">SOUL NUMBER ${soulNumber} — ${info.title}</div>
+    <div class="sc-icon">${stone.icon}</div>
+    <div class="sc-label">数秘術×パワーストーン診断</div>
+    <div class="sc-name">${stone.name}</div>
+    <div class="sc-rarity">✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨</div>
+    <div class="sc-traits">${stone.traits.join(' / ')}</div>
+    <div class="sc-url">🔮 あなたのソウルナンバーは？</div>
+  `;
+
+  // Share URLs
+  const shareText=`🔮 数秘術×パワーストーン診断\n\nソウルナンバー${soulNumber}「${info.title}」の私に\n魂が求めた石は「${stone.name}」${stone.icon}\n\n全体のわずか${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ✨\n${stone.traits.join('・')}\n\nあなたの魂は何の石を求める？👇`;
+  const shareUrl=window.location.href.split('?')[0];
+  document.getElementById('share-x').href=`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  document.getElementById('share-line').href=`https://line.me/R/msg/text/?${encodeURIComponent(shareText+'\n'+shareUrl)}`;
+
+  generateShareImage(stone,info);
+}
+
+function generateShareImage(stone,info){
+  const c=document.getElementById('shareCanvas');const ctx=c.getContext('2d');
+  // BG - dark green to indigo gradient
+  const bg=ctx.createLinearGradient(0,0,1080,1080);
+  bg.addColorStop(0,'#070E22');bg.addColorStop(0.3,'#0A3D2E');bg.addColorStop(0.7,'#0D1B3E');bg.addColorStop(1,'#061F17');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1080);
+  // Stars
+  for(let i=0;i<60;i++){
+    const a=Math.random()*0.5+0.2;
+    ctx.fillStyle=`rgba(201,168,76,${a})`;
+    ctx.beginPath();ctx.arc(Math.random()*1080,Math.random()*1080,Math.random()*1.5+0.5,0,Math.PI*2);ctx.fill();
+  }
+  // Gold border
+  ctx.strokeStyle='rgba(201,168,76,0.4)';ctx.lineWidth=2;ctx.strokeRect(40,40,1000,1000);
+  // Corner accents
+  ctx.strokeStyle='rgba(201,168,76,0.3)';ctx.lineWidth=1;
+  [[40,40,80,40,40,80],[1040,40,1000,40,1040,80],[40,1040,80,1040,40,1000],[1040,1040,1000,1040,1040,1000]].forEach(([x1,y1,x2,y2,x3,y3])=>{
+    ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x1,y1);ctx.lineTo(x3,y3);ctx.stroke();
+  });
+  // Title
+  ctx.fillStyle='#3DDC97';ctx.font='24px sans-serif';ctx.textAlign='center';
+  ctx.fillText('🔮 数秘術×パワーストーン診断',540,110);
+  // Soul number
+  ctx.fillStyle='#C9A84C';ctx.font='bold 28px sans-serif';
+  ctx.fillText(`SOUL NUMBER ${soulNumber}`,540,175);
+  ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
+  ctx.fillText(`— ${info.title} —`,540,210);
+  if(info.master){ctx.fillStyle='#FFD700';ctx.font='bold 18px sans-serif';ctx.fillText('✨ MASTER NUMBER ✨',540,245);}
+  // Divider
+  ctx.strokeStyle='rgba(201,168,76,0.4)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(340,info.master?265:245);ctx.lineTo(740,info.master?265:245);ctx.stroke();
+  // Label
+  ctx.fillStyle='#E8D5A3';ctx.font='20px sans-serif';ctx.fillText('あなたの魂が求める石',540,info.master?305:290);
+  // Icon
+  ctx.font='110px serif';ctx.fillText(stone.icon,540,info.master?440:430);
+  // Name
+  ctx.fillStyle='#C9A84C';ctx.font='bold 48px serif';ctx.fillText(stone.name,540,info.master?530:520);
+  ctx.fillStyle='rgba(201,168,76,0.5)';ctx.font='18px sans-serif';ctx.fillText(stone.nameEn,540,info.master?565:555);
+  // Rarity
+  ctx.fillStyle='#FFD700';ctx.font='bold 24px sans-serif';
+  ctx.fillText(`✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨`,540,info.master?635:625);
+  // Traits
+  ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
+  ctx.fillText(stone.traits.join('  ·  '),540,info.master?705:690);
+  // Element
+  ctx.fillStyle='rgba(232,213,163,0.6)';ctx.font='18px sans-serif';
+  ctx.fillText(`エレメント：${info.element} × ${stone.name}`,540,info.master?770:750);
+  // CTA
+  ctx.fillStyle='rgba(255,255,255,0.5)';ctx.font='22px sans-serif';ctx.fillText('あなたのソウルナンバーは？ 🔮',540,900);
+  // Footer
+  ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='16px sans-serif';ctx.fillText('数秘術×パワーストーン診断',540,970);
+}
+
+function saveShareImage(){
+  const c=document.getElementById('shareCanvas');const l=document.createElement('a');
+  const info=soulNumberInfo[soulNumber];
+  l.download=`数秘術診断_No${soulNumber}_${stones[resultKey].name}.png`;l.href=c.toDataURL('image/png');l.click();
+}
+
+function shareThreads(){
+  const s=stones[resultKey];const info=soulNumberInfo[soulNumber];
+  const text=`🔮 数秘術×パワーストーン診断やってみた\n\nソウルナンバー${soulNumber}「${info.title}」の私に\n魂が求めた石は「${s.name}」${s.icon}\n\n全体のわずか${s.rarity}%✨\n${s.traits.join('・')}\n\n当たりすぎ…\nあなたも試してみて👇`;
+  if(navigator.share)navigator.share({text,url:location.href.split('?')[0]}).catch(()=>{});
+  else navigator.clipboard.writeText(text+'\n'+location.href.split('?')[0]).then(()=>alert('テキストをコピーしました！\nThreadsに貼り付けてね'));
+}
+
+function shareIG(){saveShareImage();alert('画像を保存しました！\nInstagramストーリーに貼り付けてね')}
+function retry(){showScreen('screen-start')}
+
+// Counter
+const base=12847;const days=Math.floor((Date.now()-new Date('2025-01-01').getTime())/86400000);
+const el=document.getElementById('total-count');if(el)el.textContent=(base+days*8+Math.floor(Math.random()*6)).toLocaleString();
+</script>
+</body>
+</html>
