@@ -149,6 +149,12 @@ body::after{
 .result-traits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
 .trait-tag{background:rgba(61,220,151,0.1);border:1px solid rgba(61,220,151,0.25);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--accent-emerald)}
 .result-chakra{font-size:13px;color:var(--gold-light);opacity:0.7}
+.master-number-msg{
+  margin-top:16px;padding:12px 16px;
+  background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(201,168,76,0.06));
+  border:1px solid rgba(255,215,0,0.3);border-radius:12px;
+  font-size:14px;color:var(--accent-gold);line-height:1.6;
+}
 
 /* Message preview - first line clear, rest blurred */
 .message-preview{position:relative;margin-top:20px;padding:20px;background:rgba(0,0,0,0.15);border-radius:12px}
@@ -161,6 +167,24 @@ body::after{
 .message-overlay .lock-icon{font-size:24px;margin-bottom:8px}
 .message-overlay p{font-family:'Noto Serif JP',serif;font-size:14px;color:var(--gold)}
 .message-overlay small{font-size:11px;color:var(--sub)}
+
+/* Bracelet 3-stone layout */
+.bracelet-card{
+  background:linear-gradient(145deg,rgba(10,61,46,0.4),rgba(13,27,62,0.5));
+  border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:28px 20px;
+  margin-bottom:20px;text-align:center;
+}
+.bracelet-card h3{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--gold);margin-bottom:6px;line-height:1.6}
+.bracelet-card .bracelet-sub{font-size:13px;color:var(--accent-emerald);margin-bottom:20px}
+.bracelet-stones-row{display:flex;justify-content:center;align-items:flex-end;gap:18px;margin-bottom:16px}
+.bracelet-stone-item{text-align:center;flex:0 0 auto}
+.bracelet-stone-item.main .bs-icon{font-size:52px;animation:glow 2s ease-in-out infinite}
+.bracelet-stone-item.support .bs-icon{font-size:36px;opacity:0.85}
+.bs-name{font-size:12px;color:var(--gold-light);margin-top:4px;font-weight:500}
+.bs-role{font-size:10px;letter-spacing:2px;margin-top:2px;font-weight:700}
+.bracelet-stone-item.main .bs-role{color:var(--gold)}
+.bracelet-stone-item.support .bs-role{color:var(--accent-emerald);opacity:0.7}
+.bracelet-msg{font-size:13px;color:var(--gold-light);margin-top:12px;line-height:1.6;font-style:italic}
 
 /* Numerology detail */
 .numerology-detail{
@@ -303,7 +327,6 @@ body::after{
 }
 @keyframes orbPulse{0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(201,168,76,0.3)}50%{transform:scale(1.1);box-shadow:0 0 40px rgba(201,168,76,0.5)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-num{font-family:'Cinzel',serif;font-size:28px;color:var(--gold);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .loading p{font-family:'Noto Serif JP',serif;font-size:15px;color:var(--gold-light);min-height:24px}
 .loading-text-fade{animation:loadFadeInOut 1.5s ease-in-out}
 @keyframes loadFadeInOut{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
@@ -436,16 +459,18 @@ body::after{
 <!-- RESULT -->
 <div class="screen" id="screen-result">
   <div class="result-card" id="result-card"></div>
+  <div class="bracelet-card" id="bracelet-card"></div>
   <div class="numerology-detail" id="numerology-detail"></div>
   <div class="compat-type-section" id="compat-type-section"></div>
   <div class="compat-section" id="compat-section"></div>
   <div id="compare-result-section"></div>
   <div class="cta-section">
-    <h3>🔓 <span id="cta-name">あなた</span>専用の<br>数秘鑑定書を受け取る</h3>
+    <h3>💎 <span id="cta-name">あなた</span>専用の<br>開運ブレスレットを受け取る</h3>
     <ul class="cta-benefits">
       <li>ソウルナンバーからの詳細メッセージ全文</li>
       <li>あなたの数秘×石の深層レポート</li>
       <li>弱点を補うサブストーン3選</li>
+      <li>ブレスレットの最適な着用方法</li>
       <li>今月の数秘サイクルと開運アクション</li>
       <li>ソウルナンバー別・特別鑑定</li>
       <li>🎁 今月の開運カレンダー（PDF）</li>
@@ -536,7 +561,7 @@ function playSparkle() {
 
 // ======== Toast Notifications ========
 const toastCities = ['東京','大阪','名古屋','福岡','札幌','横浜','神戸','京都','仙台','広島'];
-const toastStoneNames = ['ラピスラズリ','ラリマー','ルチルクォーツ','翡翠','ラブラドライト','サンストーン','スギライト','タンザナイト','カーネリアン','ムーンストーン','アレキサンドライト','モルダバイト'];
+const toastStoneNames = ['ラピスラズリ','ラリマー','ルチルクォーツ','翡翠','ラブラドライト','サンストーン','スギライト'];
 
 function showToast() {
   const el = document.getElementById('toast-notification');
@@ -644,108 +669,81 @@ const questions = [
   }
 ];
 
-// --- 12 Stones ---
+// --- 7 Stones (unified with zodiac version) ---
 const stones = {
   intuition:{
-    name:'ラピスラズリ',nameEn:'LAPIS LAZULI',icon:'💎',rarity:6.8,soulNums:[7],
+    name:'ラピスラズリ',nameEn:'LAPIS LAZULI',icon:'💎',rarity:6.8,price:9800,
     traits:['第三の目覚醒','真実の探究','叡智への到達','瞑想の深化'],
     chakra:'第6チャクラ（サードアイ）',
-    compat:[{key:'wisdom',pct:94},{key:'transform',pct:91}],
+    compat:[{key:'transform',pct:94},{key:'heal',pct:91}],
     compatType:{name:'叡智パートナー',desc:'深い対話と精神的な探究を共有し、互いの意識を高め合える関係'},
     message:'ソウルナンバー7のあなたは、真理を求め続ける「探究者の魂」。\n\nラピスラズリは古代エジプトでファラオの護符とされた「天空の石」。あなたの深い内省と直感力を最高レベルに引き上げます。\n\n孤独を感じることがあっても、それは深い真理に到達するための聖なる時間。この石が6000年の叡智であなたの旅路を照らします。'
   },
   love:{
-    name:'ラリマー',nameEn:'LARIMAR',icon:'🩵',rarity:5.4,soulNums:[2],
+    name:'ラリマー',nameEn:'LARIMAR',icon:'🩵',rarity:5.4,price:12800,
     traits:['魂の癒し','共感の深化','パートナーシップ運','心の解放'],
     chakra:'第5チャクラ（スロート）',
-    compat:[{key:'harmony',pct:96},{key:'heal',pct:89}],
+    compat:[{key:'heal',pct:96},{key:'protect',pct:89}],
     compatType:{name:'共鳴パートナー',desc:'感情のレベルで深く繋がり、言葉がなくても通じ合える関係'},
     message:'ソウルナンバー2のあなたは、繊細な感受性で人の心を映す鏡のような存在。\n\nラリマーはカリブ海の小さな島でのみ産出される「愛と平和の石」。世界で最も美しいブルーと呼ばれるその色は、あなたの感情のリズムを穏やかに整えます。\n\n人との調和を大切にするあなた。この石はあなた自身の内なる光を思い出させ、真のパートナーシップへと導きます。'
   },
   wealth:{
-    name:'ルチルクォーツ',nameEn:'RUTILATED QUARTZ',icon:'✨',rarity:7.2,soulNums:[8],
+    name:'ルチルクォーツ',nameEn:'RUTILATED QUARTZ',icon:'✨',rarity:7.2,price:12800,
     traits:['金運の爆発','ビジネス運','目標達成力','豊穣の循環'],
     chakra:'第3チャクラ（ソーラープレクサス）',
-    compat:[{key:'action',pct:93},{key:'create',pct:87}],
+    compat:[{key:'action',pct:93},{key:'protect',pct:87}],
     compatType:{name:'成功パートナー',desc:'ビジネスや目標において最強のタッグを組み、互いに高め合える関係'},
     message:'ソウルナンバー8のあなたは、∞（無限）の力を秘めた「達成者の魂」。\n\nルチルクォーツは水晶の中に金色の針が走る「金運の最高峰」。中国では古来「金髪晶」と呼ばれ、財を成す者が必ず身につけた石です。\n\n8は横にすると∞。あなたの豊かさは無限の循環。この石の金の針がお金のエネルギーの流れを加速させます。'
   },
   protect:{
-    name:'翡翠',nameEn:'JADEITE',icon:'🟢',rarity:6.1,soulNums:[4],
+    name:'翡翠',nameEn:'JADEITE',icon:'🟢',rarity:6.1,price:12800,
     traits:['堅実な守護','繁栄の基盤','長寿と健康','グラウンディング'],
     chakra:'第4チャクラ（ハート）',
-    compat:[{key:'wealth',pct:90},{key:'harmony',pct:86}],
+    compat:[{key:'wealth',pct:90},{key:'love',pct:86}],
     compatType:{name:'安定パートナー',desc:'お互いの基盤を支え合い、揺るがない信頼関係を築ける相手'},
     message:'ソウルナンバー4のあなたは、堅実さと秩序を重んじる「建設者の魂」。\n\n翡翠は東洋で5000年以上「帝王の石」として崇められてきた至高の護符。持つ者に繁栄と長寿を約束し、あらゆる災いから身を守ります。\n\n着実に積み上げてきた努力が、この石と出会うことで「揺るがない成果」へと変わります。あなたのペースが正解です。'
   },
   transform:{
-    name:'ラブラドライト',nameEn:'LABRADORITE',icon:'🌌',rarity:5.8,soulNums:[5],
+    name:'ラブラドライト',nameEn:'LABRADORITE',icon:'🌌',rarity:5.8,price:9800,
     traits:['変容の加速','自由への解放','直感力強化','新次元への扉'],
     chakra:'第6・第7チャクラ',
-    compat:[{key:'intuition',pct:92},{key:'destiny',pct:88}],
+    compat:[{key:'intuition',pct:92},{key:'action',pct:88}],
     compatType:{name:'冒険パートナー',desc:'一緒にいると世界が広がり、新しい経験への扉が開く関係'},
-    message:'ソウルナンバー5のあなたは、風のように自由で、変化を恐れない冒険者の魂。\n\nラブラドライトは光の角度で虹色に輝く「変容の石」。カナダ・ラブラドル半島で発見されたこの石は、見る角度で全く違う顔を見せます。\n\nあなたの落ち着きのなさは「弱さ」ではなく「可能性」。この石はその自由な魂を守りながら、次のステージへの扉を開きます。'
+    message:'ソウルナンバー3のあなたは、宇宙から「表現の才能」を授かった魂。\n\nラブラドライトは光の角度で虹色に輝く「変容の石」。カナダ・ラブラドル半島で発見されたこの石は、見る角度で全く違う顔を見せます。\n\nあなたの創造性は「弱さ」ではなく「可能性」。この石はその自由な魂を守りながら、次のステージへの扉を開きます。'
   },
   action:{
-    name:'サンストーン',nameEn:'SUNSTONE',icon:'☀️',rarity:7.5,soulNums:[1],
+    name:'サンストーン',nameEn:'SUNSTONE',icon:'☀️',rarity:7.5,price:9800,
     traits:['リーダーシップ','情熱の着火','決断力','勝利の導き'],
     chakra:'第3チャクラ（ソーラープレクサス）',
-    compat:[{key:'wealth',pct:91},{key:'create',pct:88}],
+    compat:[{key:'wealth',pct:91},{key:'transform',pct:88}],
     compatType:{name:'開拓パートナー',desc:'お互いの行動力を高め合い、共に新しい道を切り開ける関係'},
     message:'ソウルナンバー1のあなたは、生まれながらのパイオニア。\n\nサンストーンは太陽の光を宿す「勝利の石」。バイキングが航海の羅針盤として使い、リーダーたちが決断の時に握りしめた石です。\n\n迷いの中にいる時、この石はあなたに「最初の一歩」を踏み出す炎を灯します。太陽のように道を照らし、すべてが動き出します。'
   },
   heal:{
-    name:'スギライト',nameEn:'SUGILITE',icon:'💜',rarity:4.5,soulNums:[9],
+    name:'スギライト',nameEn:'SUGILITE',icon:'💜',rarity:4.5,price:12800,
     traits:['魂の浄化','慈悲の心','癒しの波動','スピリチュアル覚醒'],
     chakra:'第7チャクラ（クラウン）',
     compat:[{key:'intuition',pct:93},{key:'love',pct:89}],
     compatType:{name:'浄化パートナー',desc:'お互いの魂を清め合い、より高い次元へと導き合う神聖な関係'},
     message:'ソウルナンバー9のあなたは、すべてを包み込む「完成者の魂」。\n\nスギライトは「世界三大ヒーリングストーン」の一つ。20世紀に日本人の杉健一博士が発見した、宇宙で最も神聖とされる紫の波動を宿す石です。\n\n過去のすべてを受け入れ、手放す時が来ています。この石があなたの慈悲深い心と共鳴し、魂の完成へと導きます。'
-  },
-  wisdom:{
-    name:'タンザナイト',nameEn:'TANZANITE',icon:'💙',rarity:4.0,soulNums:[22],
-    traits:['叡智の結晶','壮大なビジョン','運命の実現','高次の洞察'],
-    chakra:'第6・第7チャクラ',
-    compat:[{key:'intuition',pct:94},{key:'destiny',pct:90}],
-    compatType:{name:'変革パートナー',desc:'共に世界を変える壮大なビジョンを持ち、それを現実化する力を合わせられる関係'},
-    message:'マスターナンバー22のあなたは、最も強力な「大建築家の魂」。地球上で最も稀な数字の一つです。\n\nタンザナイトはアフリカ・キリマンジャロ山麓でのみ採掘される「一世代限りの宝石」。あと20年で枯渇すると言われる幻の石です。\n\nあなたの壮大なビジョンを現実化する力を持つのは、この地球が一度だけ生み出した奇跡の石。22は「マスタービルダー」——夢を現実にする魂です。'
-  },
-  create:{
-    name:'カーネリアン',nameEn:'CARNELIAN',icon:'🔥',rarity:8.3,soulNums:[3],
-    traits:['創造力の爆発','勇気と活力','自己表現力','喜びの増幅'],
-    chakra:'第2チャクラ（サクラル）',
-    compat:[{key:'action',pct:92},{key:'harmony',pct:85}],
-    compatType:{name:'創造パートナー',desc:'クリエイティビティが共鳴し、一緒にいると次々とアイデアが湧く関係'},
-    message:'ソウルナンバー3のあなたは、宇宙から「表現の才能」を授かった魂。\n\nカーネリアンはナポレオンが常に身につけた「勝利の印章石」。古代エジプトでは「沈む太陽の石」と呼ばれ、創造力と勇気を授ける石として王族に愛されました。\n\nアイデアを形にする力、人を惹きつける魅力——すべてがこの石の燃える橙色と共鳴して動き出します。'
-  },
-  harmony:{
-    name:'ムーンストーン',nameEn:'MOONSTONE',icon:'🌙',rarity:7.8,soulNums:[6],
-    traits:['月の女神の加護','家庭運上昇','女性性の開花','感情の調和'],
-    chakra:'第4チャクラ（ハート）',
-    compat:[{key:'love',pct:95},{key:'heal',pct:88}],
-    compatType:{name:'癒しパートナー',desc:'お互いを無条件に受け入れ、一緒にいるだけで心が安らぐ関係'},
-    message:'ソウルナンバー6のあなたは、深い愛と責任感を持つ「慈愛の魂」。\n\nムーンストーンは月の女神ダイアナの石。月の満ち欠けのように、あなたの感情のリズムを整え、内なる女性性を開花させます。\n\n他者のために尽くしすぎて疲れていませんか？この石は月光のように優しくあなたを包み、まず自分を満たすことの大切さを教えてくれます。'
-  },
-  destiny:{
-    name:'アレキサンドライト',nameEn:'ALEXANDRITE',icon:'🔮',rarity:3.2,soulNums:[11],
-    traits:['運命の覚醒','二面性の統合','高次の直感','使命の啓示'],
-    chakra:'第6・第7チャクラ',
-    compat:[{key:'transform',pct:93},{key:'master',pct:90}],
-    compatType:{name:'覚醒パートナー',desc:'お互いのスピリチュアルな覚醒を加速させ、高次元の意識を共有できる稀有な関係'},
-    message:'マスターナンバー11のあなたは、極めて稀な「覚醒者の魂」。人口の約5%しか持たない特別な数字です。\n\nアレキサンドライトは昼は翡翠のような緑、夜はルビーのような赤に変わる「皇帝の石」。ロシア皇帝アレクサンドル2世に献上された奇跡の宝石です。\n\n11は「二つの柱」——物質と精神、光と影。昼と夜で色を変えるこの石こそ、あなたの二面性を統合する運命の石です。'
-  },
-  master:{
-    name:'モルダバイト',nameEn:'MOLDAVITE',icon:'🌠',rarity:3.0,soulNums:[33],
-    traits:['宇宙的使命','無条件の奉仕','カルマの超越','聖なる変容'],
-    chakra:'全チャクラ',
-    compat:[{key:'destiny',pct:94},{key:'heal',pct:91}],
-    compatType:{name:'聖愛パートナー',desc:'無条件の愛で互いを包み、存在するだけで周囲を癒す聖なる関係'},
-    message:'マスターナンバー33のあなたは、地球上で最も稀な「大導師の魂」。全人口のわずか1%未満という奇跡の数字です。\n\nモルダバイトは1480万年前、巨大隕石がドイツに衝突した際に生まれた「宇宙の石」。地球外のエネルギーを宿す唯一の天然ガラスです。\n\n33は「マスターヒーラー」。あなたが存在するだけで周囲が癒される。宇宙から来たこの石が、その聖なる力をさらに増幅します。'
   }
 };
 
-// Soul number → stone mapping
-const soulStoneMap = {1:'action',2:'love',3:'create',4:'protect',5:'transform',6:'harmony',7:'intuition',8:'wealth',9:'heal',11:'destiny',22:'wisdom',33:'master'};
+// Soul number → stone mapping (7 stones)
+const soulStoneMap = {
+  1:'action',    // リーダー、開拓者
+  2:'love',      // 調和、パートナーシップ
+  3:'transform', // 創造性、変容
+  4:'protect',   // 安定、守護
+  5:'action',    // 自由、冒険→行動力
+  6:'heal',      // 奉仕、癒し
+  7:'intuition', // 真実の探求、直感
+  8:'wealth',    // 豊かさ、成功
+  9:'heal',      // 博愛、魂の浄化
+  11:'intuition',// 霊的直感、マスターナンバー
+  22:'wealth',   // 大きな成功、マスターナンバー
+  33:'love'      // 無条件の愛、マスターナンバー
+};
 
 // Score categories
 const scoreCategories = ['protect','intuition','love','power','heal','transform','wealth','wisdom','ground'];
@@ -863,7 +861,6 @@ function drawNumerologyChart(soulNum) {
   const cx = 120, cy = 120, r = 90;
   ctx.clearRect(0, 0, 240, 240);
 
-  // Draw circle of numbers 1-9 + master numbers
   const nums = [1,2,3,4,5,6,7,8,9];
   const positions = [];
   for (let i = 0; i < nums.length; i++) {
@@ -873,7 +870,6 @@ function drawNumerologyChart(soulNum) {
     positions.push({x, y, num: nums[i]});
   }
 
-  // Connecting lines (dim)
   ctx.strokeStyle = 'rgba(201,168,76,0.15)';
   ctx.lineWidth = 0.5;
   for (let i = 0; i < nums.length; i++) {
@@ -883,12 +879,10 @@ function drawNumerologyChart(soulNum) {
     ctx.stroke();
   }
 
-  // Find which index matches soul number (for single digits)
   let highlightIdx = -1;
   const singleDigit = soulNum > 9 ? (soulNum === 11 ? 2 : soulNum === 22 ? 4 : 6) : soulNum;
   highlightIdx = nums.indexOf(singleDigit);
 
-  // Highlight lines from the soul number position
   if (highlightIdx >= 0) {
     ctx.strokeStyle = 'rgba(201,168,76,0.6)';
     ctx.lineWidth = 1.5;
@@ -901,14 +895,13 @@ function drawNumerologyChart(soulNum) {
     });
   }
 
-  // Number dots and labels
   for (let i = 0; i < nums.length; i++) {
     const isActive = i === highlightIdx;
     ctx.beginPath();
     ctx.arc(positions[i].x, positions[i].y, isActive ? 14 : 8, 0, Math.PI * 2);
     ctx.fillStyle = isActive ? 'rgba(201,168,76,0.3)' : 'rgba(10,61,46,0.3)';
     ctx.fill();
-    ctx.strokeStyle = isActive ? 'var(--gold)' : 'rgba(201,168,76,0.2)';
+    ctx.strokeStyle = isActive ? '#C9A84C' : 'rgba(201,168,76,0.2)';
     ctx.lineWidth = isActive ? 2 : 1;
     ctx.stroke();
 
@@ -919,7 +912,6 @@ function drawNumerologyChart(soulNum) {
     ctx.fillText(nums[i], positions[i].x, positions[i].y);
   }
 
-  // Center: soul number
   ctx.fillStyle = '#C9A84C';
   ctx.font = 'bold 18px Cinzel, serif';
   ctx.textAlign = 'center';
@@ -981,6 +973,7 @@ function showResult(){
   const stone=stones[resultKey];
   const info=soulNumberInfo[soulNumber];
   const displayName = userName === 'あなた' ? 'あなた' : userName + 'さん';
+  const isMaster = [11,22,33].includes(soulNumber);
 
   showScreen('screen-result');
 
@@ -990,7 +983,7 @@ function showResult(){
   // Sparkle sound
   playSparkle();
 
-  // Save diagnosed flag (numerology専用キー)
+  // Save diagnosed flag
   localStorage.setItem('numerology_diagnosed', resultKey);
 
   // Start countdown
@@ -1004,6 +997,11 @@ function showResult(){
   const firstLine = msgLines[0] || '';
   const restLines = msgLines.slice(1).join('\n');
 
+  // Master number message
+  const masterHtml = isMaster
+    ? `<div class="master-number-msg">✨ マスターナンバー ${soulNumber} — 特別な使命を持つ魂です</div>`
+    : '';
+
   // Result card
   const masterClass=info.master?'master-rarity':'';
   document.getElementById('result-card').innerHTML=`
@@ -1013,12 +1011,13 @@ function showResult(){
       ${info.master?'<span style="font-size:11px;color:#FFD700">✨MASTER</span>':''}
     </div>
     <div class="result-stone-icon">${stone.icon}</div>
-    <div class="result-label">${displayName}の魂が求める石</div>
+    <div class="result-label">${displayName}の魂が導く開運ブレスレット</div>
     <div class="result-name">${stone.name}</div>
     <div class="result-name-en">${stone.nameEn}</div>
     <div class="rarity-badge ${masterClass}">✨ 全体の <strong>${stone.rarity}%</strong> だけが選ばれる${info.master?'極めて希少':'希少'}な組み合わせ</div>
     <div class="result-traits">${stone.traits.map(t=>`<span class="trait-tag">${t}</span>`).join('')}</div>
     <div class="result-chakra">対応チャクラ：${stone.chakra}</div>
+    ${masterHtml}
     <div class="message-preview">
       <div class="message-first-line">${firstLine}</div>
       <div class="message-blurred">${restLines.replace(/\n/g,'<br>')}</div>
@@ -1028,6 +1027,20 @@ function showResult(){
         <small>LINE追加で全文を読む ↓</small>
       </div>
     </div>
+  `;
+
+  // Bracelet card (main + 2 support stones from compat)
+  const support1 = stones[stone.compat[0].key];
+  const support2 = stones[stone.compat[1].key];
+  document.getElementById('bracelet-card').innerHTML=`
+    <h3>💎 ${displayName}の開運ブレスレット構成</h3>
+    <div class="bracelet-sub">3石の最強構成</div>
+    <div class="bracelet-stones-row">
+      <div class="bracelet-stone-item support"><div class="bs-icon">${support1.icon}</div><div class="bs-name">${support1.name}</div><div class="bs-role">SUPPORT</div></div>
+      <div class="bracelet-stone-item main"><div class="bs-icon">${stone.icon}</div><div class="bs-name">${stone.name}</div><div class="bs-role">MAIN</div></div>
+      <div class="bracelet-stone-item support"><div class="bs-icon">${support2.icon}</div><div class="bs-name">${support2.name}</div><div class="bs-role">SUPPORT</div></div>
+    </div>
+    <div class="bracelet-msg">「この3石の組み合わせは${displayName}専用の最強構成です」</div>
   `;
 
   // CTA name
@@ -1050,13 +1063,12 @@ function showResult(){
   // Compatible stones
   const compatHtml=stone.compat.map(c=>{
     const cs=stones[c.key];
-    const csNums=cs.soulNums.join('・');
-    return `<div class="compat-item"><div class="stone-mini">${cs.icon}</div><div class="compat-name">${cs.name}</div><div class="compat-soul">No.${csNums}</div><div class="compat-pct">${c.pct}%</div></div>`;
+    return `<div class="compat-item"><div class="stone-mini">${cs.icon}</div><div class="compat-name">${cs.name}</div><div class="compat-pct">${c.pct}%</div></div>`;
   }).join('');
   document.getElementById('compat-section').innerHTML=`
     <h3>✦ 相性の良い石タイプ</h3>
     <div class="compat-row">${compatHtml}</div>
-    <div class="compat-note">この石タイプのソウルナンバーの人とシェアすると、エネルギーが高まります</div>
+    <div class="compat-note">この石タイプの人とシェアし合うと、お互いのエネルギーが高まります</div>
   `;
 
   // Check compare param
@@ -1073,7 +1085,7 @@ function showResult(){
   document.getElementById('share-card-preview').innerHTML=`
     <div class="sc-soul">SOUL NUMBER ${soulNumber} — ${info.title}</div>
     <div class="sc-icon">${stone.icon}</div>
-    <div class="sc-label">数秘術×パワーストーン診断</div>
+    <div class="sc-label">数秘術×開運ブレスレット診断</div>
     <div class="sc-name">${stone.name}</div>
     <div class="sc-rarity">✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨</div>
     <div class="sc-traits">${stone.traits.join(' / ')}</div>
@@ -1082,7 +1094,7 @@ function showResult(){
 
   // Share URLs
   const who = userName === 'あなた' ? '私' : userName;
-  const shareText=`🔮 数秘術×パワーストーン診断\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が求めた石は「${stone.name}」${stone.icon}\n\n全体のわずか${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ✨\n${stone.traits.join('・')}\n\nあなたの魂は何の石を求める？👇`;
+  const shareText=`🔮 数秘術×開運ブレスレット診断\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が導いた開運ブレスレットは「${stone.name}」${stone.icon}\n\n全体のわずか${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ✨\n${stone.traits.join('・')}\n\nあなたの魂は何の石を求める？👇`;
   const shareUrl=window.location.href.split('?')[0];
   document.getElementById('share-x').href=`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
   document.getElementById('share-line').href=`https://line.me/R/msg/text/?${encodeURIComponent(shareText+'\n'+shareUrl)}`;
@@ -1162,7 +1174,8 @@ function checkCompareResult(myKey, myStone) {
 function generateShareImage(stone,info){
   const c=document.getElementById('shareCanvas');const ctx=c.getContext('2d');
   const displayName = userName === 'あなた' ? '' : userName + 'さんの';
-  // BG - dark green to indigo gradient
+  const isMaster = [11,22,33].includes(soulNumber);
+  // BG
   const bg=ctx.createLinearGradient(0,0,1080,1080);
   bg.addColorStop(0,'#070E22');bg.addColorStop(0.3,'#0A3D2E');bg.addColorStop(0.7,'#0D1B3E');bg.addColorStop(1,'#061F17');
   ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1080);
@@ -1181,8 +1194,8 @@ function generateShareImage(stone,info){
   });
   // Title
   ctx.fillStyle='#3DDC97';ctx.font='24px sans-serif';ctx.textAlign='center';
-  ctx.fillText('🔮 数秘術×パワーストーン診断',540,110);
-  // Name (if provided)
+  ctx.fillText('🔮 数秘術×開運ブレスレット診断',540,110);
+  // Name
   if (displayName) {
     ctx.fillStyle='#E8D5A3';ctx.font='22px sans-serif';
     ctx.fillText(displayName + '診断結果',540,145);
@@ -1192,45 +1205,49 @@ function generateShareImage(stone,info){
   ctx.fillText(`SOUL NUMBER ${soulNumber}`,540,175+(displayName?10:0));
   ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
   ctx.fillText(`— ${info.title} —`,540,210+(displayName?10:0));
-  if(info.master){ctx.fillStyle='#FFD700';ctx.font='bold 18px sans-serif';ctx.fillText('✨ MASTER NUMBER ✨',540,245+(displayName?10:0));}
+  if(isMaster){ctx.fillStyle='#FFD700';ctx.font='bold 18px sans-serif';ctx.fillText('✨ MASTER NUMBER ✨',540,245+(displayName?10:0));}
   // Divider
-  const divY = info.master ? 265 : 245;
+  const divY = isMaster ? 265 : 245;
   const offy = displayName ? 10 : 0;
   ctx.strokeStyle='rgba(201,168,76,0.4)';ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(340,divY+offy);ctx.lineTo(740,divY+offy);ctx.stroke();
   // Label
   ctx.fillStyle='#E8D5A3';ctx.font='20px sans-serif';
-  ctx.fillText(displayName ? displayName + '魂が求める石' : 'あなたの魂が求める石',540,divY+offy+40);
+  ctx.fillText(displayName ? displayName + '魂が導く開運ブレスレット' : 'あなたの魂が導く開運ブレスレット',540,divY+offy+40);
   // Icon
   ctx.font='110px serif';ctx.fillText(stone.icon,540,divY+offy+175);
   // Name
   ctx.fillStyle='#C9A84C';ctx.font='bold 48px serif';ctx.fillText(stone.name,540,divY+offy+265);
   ctx.fillStyle='rgba(201,168,76,0.5)';ctx.font='18px sans-serif';ctx.fillText(stone.nameEn,540,divY+offy+300);
+  // Support stones
+  const s1 = stones[stone.compat[0].key];
+  const s2 = stones[stone.compat[1].key];
+  ctx.fillStyle='#E8D5A3';ctx.font='16px sans-serif';
+  ctx.fillText(`サポート: ${s1.icon} ${s1.name}  ×  ${s2.icon} ${s2.name}`,540,divY+offy+340);
   // Rarity
   ctx.fillStyle='#FFD700';ctx.font='bold 24px sans-serif';
-  ctx.fillText(`✨ 全体の${stone.rarity}%の${info.master?'極めて希少':'希少'}な組み合わせ ✨`,540,divY+offy+370);
+  ctx.fillText(`✨ 全体の${stone.rarity}%の${isMaster?'極めて希少':'希少'}な組み合わせ ✨`,540,divY+offy+400);
   // Traits
   ctx.fillStyle='#3DDC97';ctx.font='20px sans-serif';
-  ctx.fillText(stone.traits.join('  ·  '),540,divY+offy+440);
+  ctx.fillText(stone.traits.join('  ·  '),540,divY+offy+460);
   // Element
   ctx.fillStyle='rgba(232,213,163,0.6)';ctx.font='18px sans-serif';
-  ctx.fillText(`エレメント：${info.element} × ${stone.name}`,540,divY+offy+500);
+  ctx.fillText(`エレメント：${info.element} × ${stone.name}`,540,divY+offy+510);
   // CTA
   ctx.fillStyle='rgba(255,255,255,0.5)';ctx.font='22px sans-serif';ctx.fillText('あなたのソウルナンバーは？ 🔮',540,900);
   // Footer
-  ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='16px sans-serif';ctx.fillText('数秘術×パワーストーン診断',540,970);
+  ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='16px sans-serif';ctx.fillText('数秘術×開運ブレスレット診断',540,970);
 }
 
 function saveShareImage(){
   const c=document.getElementById('shareCanvas');const l=document.createElement('a');
-  const info=soulNumberInfo[soulNumber];
   l.download=`数秘術診断_No${soulNumber}_${stones[resultKey].name}.png`;l.href=c.toDataURL('image/png');l.click();
 }
 
 function shareThreads(){
   const s=stones[resultKey];const info=soulNumberInfo[soulNumber];
   const who = userName === 'あなた' ? '私' : userName;
-  const text=`🔮 数秘術×パワーストーン診断やってみた\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が求めた石は「${s.name}」${s.icon}\n\n全体のわずか${s.rarity}%✨\n${s.traits.join('・')}\n\n当たりすぎ…\nあなたも試してみて👇`;
+  const text=`🔮 数秘術×開運ブレスレット診断やってみた\n\nソウルナンバー${soulNumber}「${info.title}」の${who}に\n魂が導いた開運ブレスレットは「${s.name}」${s.icon}\n\n全体のわずか${s.rarity}%✨\n${s.traits.join('・')}\n\n当たりすぎ…\nあなたも試してみて👇`;
   if(navigator.share)navigator.share({text,url:location.href.split('?')[0]}).catch(()=>{});
   else navigator.clipboard.writeText(text+'\n'+location.href.split('?')[0]).then(()=>alert('テキストをコピーしました！\nThreadsに貼り付けてね'));
 }
@@ -1245,11 +1262,9 @@ function retry(){
 }
 
 // ======== Init ========
-// Counter
 const base=12847;const days=Math.floor((Date.now()-new Date('2025-01-01').getTime())/86400000);
 const el=document.getElementById('total-count');if(el)el.textContent=(base+days*8+Math.floor(Math.random()*6)).toLocaleString();
 
-// Check already diagnosed on load
 document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
 checkAlreadyDiagnosed();
 </script>
