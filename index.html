@@ -134,7 +134,11 @@ body::after{
 }
 .result-soul-badge .soul-label{font-size:12px;color:var(--gold-light);letter-spacing:1px}
 .result-soul-badge .soul-number{font-family:'Cinzel',serif;font-size:20px;color:var(--accent-gold);font-weight:700}
-.result-stone-icon{font-size:64px;margin-bottom:12px;animation:glow 2s ease-in-out infinite}
+
+  .stone-photo{width:180px;height:180px;border-radius:50%;object-fit:cover;border:3px solid rgba(124,158,247,0.3);box-shadow:0 0 20px rgba(124,158,247,0.2);margin:0 auto 8px;display:block}
+  .stone-photo-small{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid rgba(124,158,247,0.2);box-shadow:0 0 10px rgba(124,158,247,0.15)}
+
+  .result-stone-icon{font-size:64px;margin-bottom:12px;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3) drop-shadow(0 0 20px rgba(201,168,76,0.5))}}
 .result-label{font-size:12px;color:var(--gold-light);letter-spacing:4px;margin-bottom:8px}
 .result-name{font-family:'Cinzel','Noto Serif JP',serif;font-size:28px;color:var(--gold);margin-bottom:4px}
@@ -693,7 +697,7 @@ const questions = [
     options:[
       {icon:"🌿",text:"地に足をつける安定感",sub:"ふわふわして落ち着かない",scores:{ground:3,protect:1}},
       {icon:"🦅",text:"高い視点で物事を見る力",sub:"目の前のことに囚われがち",scores:{wisdom:3,intuition:1}},
-      {icon:"💎",text:"自分の価値を信じる力",sub:"自信が持てない",scores:{power:3,wealth:1}},
+      {icon:"💎",image:'images/lapis-lazuli.jpg',text:"自分の価値を信じる力",sub:"自信が持てない",scores:{power:3,wealth:1}},
       {icon:"🌊",text:"感情を解放する力",sub:"溜め込みすぎている",scores:{heal:3,love:1}}
     ]
   },
@@ -712,7 +716,7 @@ const questions = [
 // --- 7 Stones (unified with zodiac version) ---
 const stones = {
   intuition:{
-    name:'ラピスラズリ',nameEn:'LAPIS LAZULI',icon:'💎',rarity:6.8,price:9800,
+    name:'ラピスラズリ',nameEn:'LAPIS LAZULI',icon:'💎',image:'images/lapis-lazuli.jpg',rarity:6.8,price:9800,
     traits:['第三の目覚醒','真実の探究','叡智への到達','瞑想の深化'],
     chakra:'第6チャクラ（サードアイ）',
     compat:[{key:'transform',pct:94},{key:'heal',pct:91}],
@@ -720,7 +724,7 @@ const stones = {
     message:'ソウルナンバー7のあなたは、真理を求め続ける「探究者の魂」。\n\nラピスラズリは古代エジプトでファラオの護符とされた「天空の石」。あなたの深い内省と直感力を最高レベルに引き上げます。\n\n孤独を感じることがあっても、それは深い真理に到達するための聖なる時間。この石が6000年の叡智であなたの旅路を照らします。'
   },
   love:{
-    name:'ラリマー',nameEn:'LARIMAR',icon:'🩵',rarity:5.4,price:12800,
+    name:'ラリマー',nameEn:'LARIMAR',icon:'🩵',image:'images/larimar.jpg',rarity:5.4,price:12800,
     traits:['魂の癒し','共感の深化','パートナーシップ運','心の解放'],
     chakra:'第5チャクラ（スロート）',
     compat:[{key:'heal',pct:96},{key:'protect',pct:89}],
@@ -728,7 +732,7 @@ const stones = {
     message:'ソウルナンバー2のあなたは、繊細な感受性で人の心を映す鏡のような存在。\n\nラリマーはカリブ海の小さな島でのみ産出される「愛と平和の石」。世界で最も美しいブルーと呼ばれるその色は、あなたの感情のリズムを穏やかに整えます。\n\n人との調和を大切にするあなた。この石はあなた自身の内なる光を思い出させ、真のパートナーシップへと導きます。'
   },
   wealth:{
-    name:'ルチルクォーツ',nameEn:'RUTILATED QUARTZ',icon:'✨',rarity:7.2,price:12800,
+    name:'ルチルクォーツ',nameEn:'RUTILATED QUARTZ',icon:'✨',image:'images/rutilated-quartz.jpg',rarity:7.2,price:12800,
     traits:['金運の爆発','ビジネス運','目標達成力','豊穣の循環'],
     chakra:'第3チャクラ（ソーラープレクサス）',
     compat:[{key:'action',pct:93},{key:'protect',pct:87}],
@@ -736,7 +740,7 @@ const stones = {
     message:'ソウルナンバー8のあなたは、∞（無限）の力を秘めた「達成者の魂」。\n\nルチルクォーツは水晶の中に金色の針が走る「金運の最高峰」。中国では古来「金髪晶」と呼ばれ、財を成す者が必ず身につけた石です。\n\n8は横にすると∞。あなたの豊かさは無限の循環。この石の金の針がお金のエネルギーの流れを加速させます。'
   },
   protect:{
-    name:'翡翠',nameEn:'JADEITE',icon:'🟢',rarity:6.1,price:12800,
+    name:'翡翠',nameEn:'JADEITE',icon:'🟢',image:'images/jadeite.jpg',rarity:6.1,price:12800,
     traits:['堅実な守護','繁栄の基盤','長寿と健康','グラウンディング'],
     chakra:'第4チャクラ（ハート）',
     compat:[{key:'wealth',pct:90},{key:'love',pct:86}],
@@ -744,7 +748,7 @@ const stones = {
     message:'ソウルナンバー4のあなたは、堅実さと秩序を重んじる「建設者の魂」。\n\n翡翠は東洋で5000年以上「帝王の石」として崇められてきた至高の護符。持つ者に繁栄と長寿を約束し、あらゆる災いから身を守ります。\n\n着実に積み上げてきた努力が、この石と出会うことで「揺るがない成果」へと変わります。あなたのペースが正解です。'
   },
   transform:{
-    name:'ラブラドライト',nameEn:'LABRADORITE',icon:'🌌',rarity:5.8,price:9800,
+    name:'ラブラドライト',nameEn:'LABRADORITE',icon:'🌌',image:'images/labradorite.jpg',rarity:5.8,price:9800,
     traits:['変容の加速','自由への解放','直感力強化','新次元への扉'],
     chakra:'第6・第7チャクラ',
     compat:[{key:'intuition',pct:92},{key:'action',pct:88}],
@@ -752,7 +756,7 @@ const stones = {
     message:'ソウルナンバー3のあなたは、宇宙から「表現の才能」を授かった魂。\n\nラブラドライトは光の角度で虹色に輝く「変容の石」。カナダ・ラブラドル半島で発見されたこの石は、見る角度で全く違う顔を見せます。\n\nあなたの創造性は「弱さ」ではなく「可能性」。この石はその自由な魂を守りながら、次のステージへの扉を開きます。'
   },
   action:{
-    name:'サンストーン',nameEn:'SUNSTONE',icon:'☀️',rarity:7.5,price:9800,
+    name:'サンストーン',nameEn:'SUNSTONE',icon:'☀️',image:'images/sunstone.jpg',rarity:7.5,price:9800,
     traits:['リーダーシップ','情熱の着火','決断力','勝利の導き'],
     chakra:'第3チャクラ（ソーラープレクサス）',
     compat:[{key:'wealth',pct:91},{key:'transform',pct:88}],
@@ -760,7 +764,7 @@ const stones = {
     message:'ソウルナンバー1のあなたは、生まれながらのパイオニア。\n\nサンストーンは太陽の光を宿す「勝利の石」。バイキングが航海の羅針盤として使い、リーダーたちが決断の時に握りしめた石です。\n\n迷いの中にいる時、この石はあなたに「最初の一歩」を踏み出す炎を灯します。太陽のように道を照らし、すべてが動き出します。'
   },
   heal:{
-    name:'スギライト',nameEn:'SUGILITE',icon:'💜',rarity:4.5,price:12800,
+    name:'スギライト',nameEn:'SUGILITE',icon:'💜',image:'images/sugilite.jpg',rarity:4.5,price:12800,
     traits:['魂の浄化','慈悲の心','癒しの波動','スピリチュアル覚醒'],
     chakra:'第7チャクラ（クラウン）',
     compat:[{key:'intuition',pct:93},{key:'love',pct:89}],
@@ -1050,7 +1054,7 @@ function showResult(){
       <span class="soul-number">${soulNumber}</span>
       ${info.master?'<span style="font-size:11px;color:#FFD700">✨MASTER</span>':''}
     </div>
-    <div class="result-stone-icon">${stone.icon}</div>
+    <img class="stone-photo" src="${stone.image}" alt="${stone.name}" onerror="this.style.display='none'"><div class="result-stone-icon" style="font-size:32px">${stone.icon}</div>
     <div class="result-label">${displayName}の魂が導く開運ブレスレット</div>
     <div class="result-name">${stone.name}</div>
     <div class="result-name-en">${stone.nameEn}</div>
@@ -1076,9 +1080,9 @@ function showResult(){
     <h3>💎 ${displayName}の開運ブレスレット構成</h3>
     <div class="bracelet-sub">3石の最強構成</div>
     <div class="bracelet-stones-row">
-      <div class="bracelet-stone-item support"><div class="bs-icon">${support1.icon}</div><div class="bs-name">${support1.name}</div><div class="bs-role">SUPPORT</div></div>
-      <div class="bracelet-stone-item main"><div class="bs-icon">${stone.icon}</div><div class="bs-name">${stone.name}</div><div class="bs-role">MAIN</div></div>
-      <div class="bracelet-stone-item support"><div class="bs-icon">${support2.icon}</div><div class="bs-name">${support2.name}</div><div class="bs-role">SUPPORT</div></div>
+      <div class="bracelet-stone-item support"><img class="stone-photo-small" src="${support1.image}" onerror="this.style.display='none'"><div class="bs-icon">${support1.icon}</div><div class="bs-name">${support1.name}</div><div class="bs-role">SUPPORT</div></div>
+      <div class="bracelet-stone-item main"><img class="stone-photo-small" src="${stone.image}" onerror="this.style.display='none'"><div class="bs-icon">${stone.icon}</div><div class="bs-name">${stone.name}</div><div class="bs-role">MAIN</div></div>
+      <div class="bracelet-stone-item support"><img class="stone-photo-small" src="${support2.image}" onerror="this.style.display='none'"><div class="bs-icon">${support2.icon}</div><div class="bs-name">${support2.name}</div><div class="bs-role">SUPPORT</div></div>
     </div>
     <div class="bracelet-msg">「この3石の組み合わせは${displayName}専用の最強構成です」</div>
   `;
@@ -1103,7 +1107,7 @@ function showResult(){
   // Compatible stones
   const compatHtml=stone.compat.map(c=>{
     const cs=stones[c.key];
-    return `<div class="compat-item"><div class="stone-mini">${cs.icon}</div><div class="compat-name">${cs.name}</div><div class="compat-pct">${c.pct}%</div></div>`;
+    return `<div class="compat-item"><img class="stone-photo-small" src="${cs.image}" onerror="this.style.display='none'" style="margin-bottom:4px"><div class="stone-mini">${cs.icon}</div><div class="compat-name">${cs.name}</div><div class="compat-pct">${c.pct}%</div></div>`;
   }).join('');
   document.getElementById('compat-section').innerHTML=`
     <h3>✦ 相性の良い石タイプ</h3>
