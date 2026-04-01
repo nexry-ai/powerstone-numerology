@@ -511,8 +511,7 @@ body::after{
 
 <script>
 const LINE_URL='https://line.me/R/ti/p/@304bbnks'; // ISHIYA公式LINE
-const API_BASE='https://motels-intimate-css-elephant.trycloudflare.com'; // Cloudflare Tunnel → ishiya-line-engine
-const PROJECT_SLUG='ishiya';
+const API_BASE='https://line-crm-worker.nexry-inc-ai.workers.dev';
 const DIAGNOSIS_TYPE='numerology';
 
 // UTMパラメータ取得
@@ -529,7 +528,7 @@ function getUTMParams() {
 async function sendDiagnosisToAPI(result, stonesArr, detail) {
   try {
     const utm = getUTMParams();
-    const res = await fetch(`${API_BASE}/api/${PROJECT_SLUG}/lp-diagnosis`, {
+    const res = await fetch(`${API_BASE}/api/diagnosis/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type: DIAGNOSIS_TYPE, result, stones: stonesArr, detail, utm }),
